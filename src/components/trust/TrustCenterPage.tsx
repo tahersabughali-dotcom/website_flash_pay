@@ -1,0 +1,57 @@
+import Link from "next/link";
+import { settingsData } from "@/data/settingsData";
+import { homepageData } from "@/data/homepageData";
+import { PageHero } from "@/components/shared/PageHero";
+import { SectionHeader } from "@/components/shared/SectionHeader";
+import { getPublishedTrustItems } from "@/lib/dataAccess";
+import { getLocalized } from "@/lib/i18n";
+import { OfficialChannelsBox } from "./OfficialChannelsBox";
+import { TrustGrid } from "./TrustGrid";
+import { DisclaimerSection } from "./DisclaimerSection";
+
+export function TrustCenterPage() {
+  const lang = settingsData.defaultLanguage;
+  const trustItems = getPublishedTrustItems();
+
+  return (
+    <div className="flash-page-wrap">
+      <PageHero
+        eyebrow="Trust Center"
+        title={lang === "ar" ? "Trust Center" : "Trust Center"}
+        subtitle={
+          lang === "ar"
+            ? "الأمان، الشفافية، القنوات الرسمية، وإخلاء المسؤولية."
+            : "Safety, transparency, official channels, and disclaimers."
+        }
+      />
+
+      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
+        <div className="space-y-8">
+          <SectionHeader
+            title={lang === "ar" ? "إشعارات الثقة" : "Trust notices"}
+            subtitle={
+              lang === "ar"
+                ? "اقرأ هذه الإشعارات قبل استخدام أي خدمة."
+                : "Read these notices before using any service."
+            }
+          />
+          <TrustGrid items={trustItems} lang={lang} />
+          <DisclaimerSection lang={lang} />
+        </div>
+
+        <aside className="space-y-6">
+          <OfficialChannelsBox />
+          <div className="flash-card p-5 text-sm text-flash-muted">
+            <p>{getLocalized(homepageData.footer.safetyNotice, lang)}</p>
+            <Link
+              href="/request"
+              className="mt-4 inline-flex font-medium text-flash-primary hover:underline"
+            >
+              {lang === "ar" ? "تواصل عبر مركز الطلبات ←" : "Contact via Request Center →"}
+            </Link>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --flash-primary: #0066cc;
+  --flash-primary-light: #e8f4fd;
+  --flash-primary-dark: #004c99;
+  --flash-accent: #00a3e0;
+  --flash-surface: #f8fafc;
+  --flash-text: #0f172a;
+  --flash-muted: #64748b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-flash-primary: var(--flash-primary);
+  --color-flash-primary-light: var(--flash-primary-light);
+  --color-flash-primary-dark: var(--flash-primary-dark);
+  --color-flash-accent: var(--flash-accent);
+  --color-flash-surface: var(--flash-surface);
+  --color-flash-text: var(--flash-text);
+  --color-flash-muted: var(--flash-muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+}
+
+html {
+  overflow-x: clip;
+}
+
+@layer utilities {
+  .flash-section {
+    @apply mt-14 sm:mt-16;
+  }
+
+  .flash-card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+
+  .flash-card-interactive {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-flash-primary/40 hover:shadow-md;
+  }
+
+  .flash-page-wrap {
+    @apply mx-auto w-full max-w-6xl px-4 py-8 sm:py-12;
+  }
+
+  .flash-btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center rounded-xl bg-flash-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-flash-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flash-primary focus-visible:ring-offset-2;
+  }
+
+  .flash-btn-secondary {
+    @apply inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-flash-primary transition hover:border-flash-primary/30 hover:bg-flash-primary-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flash-primary focus-visible:ring-offset-2;
+  }
+
+  .flash-btn-ghost-white {
+    @apply inline-flex min-h-11 items-center justify-center rounded-xl bg-white/15 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-flash-primary;
+  }
+
+  .flash-link-action {
+    @apply text-sm font-medium text-flash-primary transition hover:underline focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flash-primary focus-visible:ring-offset-2;
+  }
+
+  .flash-filter-scroll {
+    @apply -mx-1 overflow-x-auto pb-1 [scrollbar-width:thin];
+  }
+
+  .flash-filter-scroll-inner {
+    @apply flex min-w-max gap-2 sm:min-w-0 sm:flex-wrap;
+  }
+}

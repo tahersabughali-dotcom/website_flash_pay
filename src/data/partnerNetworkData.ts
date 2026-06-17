@@ -1,0 +1,108 @@
+import type { PartnerNetworkEntry } from "@/types/partner";
+
+const TS = "2026-06-17T00:00:00.000Z";
+
+export const partnerNetworkData: PartnerNetworkEntry[] = [
+  {
+    id: "pn-local-office",
+    slug: "local-partner-office",
+    title: { ar: "مكتب شريك محلي", en: "Local Partner Office" },
+    description: {
+      ar: "مكاتب شركاء محلية تساعد في تنفيذ أو استلام الخدمات حسب الدولة. Flash Pay تنسق ولا تدّعي امتلاك كل مكتب مباشرة.",
+      en: "Local partner offices help execute or receive services by country. Flash Pay coordinates and does not claim to own every office directly.",
+    },
+    type: "local_office_partner",
+    countries: ["egypt", "turkey", "uae", "jordan", "gaza"],
+    status: "active",
+    order: 1,
+    createdAt: TS,
+    updatedAt: TS,
+  },
+  {
+    id: "pn-liquidity",
+    slug: "liquidity-partner",
+    title: { ar: "شريك سيولة", en: "Liquidity Partner" },
+    description: {
+      ar: "شركاء يوفّرون سيولة للعملات وUSDT. الأسعار والتوفر يُؤكدان مباشرة وليست مضمونة على الموقع.",
+      en: "Partners providing currency and USDT liquidity. Rates and availability are confirmed directly, not guaranteed on the website.",
+    },
+    type: "liquidity_partner",
+    countries: ["egypt", "turkey", "uae"],
+    status: "active",
+    order: 2,
+    createdAt: TS,
+    updatedAt: TS,
+  },
+  {
+    id: "pn-authorized",
+    slug: "authorized-partner-office",
+    title: { ar: "مكتب شريك معتمد", en: "Authorized Partner Office" },
+    description: {
+      ar: "حيثما توفر، بعض الشركاء معتمدون لخدمات محددة. Flash Pay لا تدّعي أن كل خدمة معتمدة رسمياً باسم Flash Pay.",
+      en: "Where available, some partners are authorized for specific services. Flash Pay does not claim every service is officially authorized under the Flash Pay name.",
+    },
+    type: "authorized_partner",
+    countries: ["egypt", "uae"],
+    status: "active",
+    order: 3,
+    createdAt: TS,
+    updatedAt: TS,
+  },
+  {
+    id: "pn-referral",
+    slug: "referral-partner",
+    title: { ar: "شريك إحالة", en: "Referral Partner" },
+    description: {
+      ar: "شركاء نوجّه العملاء إليهم للخدمات المتخصصة أو نقاط الخدمة المناسبة.",
+      en: "Partners we refer clients to for specialized services or suitable service points.",
+    },
+    type: "referral",
+    status: "active",
+    order: 4,
+    createdAt: TS,
+    updatedAt: TS,
+  },
+  {
+    id: "pn-execution",
+    slug: "execution-partner",
+    title: { ar: "شريك تنفيذ", en: "Execution Partner" },
+    description: {
+      ar: "شركاء ينفّذون المعاملات أو التحويلات ضمن شبكة Flash Pay حسب الاتفاق والتوفر.",
+      en: "Partners who execute transactions or transfers within the Flash Pay network per agreement and availability.",
+    },
+    type: "coordination",
+    status: "active",
+    order: 5,
+    createdAt: TS,
+    updatedAt: TS,
+  },
+  {
+    id: "pn-business",
+    slug: "business-partner",
+    title: { ar: "شريك تجاري", en: "Business Partner" },
+    description: {
+      ar: "شركاء يدعمون Flash Business Class للتجار والشركات بأحجام كبيرة.",
+      en: "Partners supporting Flash Business Class for traders and companies at scale.",
+    },
+    type: "partner",
+    countries: ["china", "turkey", "uae"],
+    status: "active",
+    order: 6,
+    createdAt: TS,
+    updatedAt: TS,
+  },
+  {
+    id: "pn-country-coverage",
+    slug: "country-coverage-partner",
+    title: { ar: "شريك تغطية دولية", en: "Country Coverage Partner" },
+    description: {
+      ar: "شركاء يوسّعون التغطية الجغرافية — التوفر يختلف حسب الدولة والعملة.",
+      en: "Partners extending geographic coverage — availability varies by country and currency.",
+    },
+    type: "coordination",
+    status: "active",
+    order: 7,
+    createdAt: TS,
+    updatedAt: TS,
+  },
+];
