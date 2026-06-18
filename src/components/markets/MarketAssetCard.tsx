@@ -5,6 +5,7 @@ import { settingsData } from "@/data/settingsData";
 import { LtrText } from "@/components/shared/LtrText";
 import { formatDate, formatNumber, formatPercent } from "@/lib/formatters";
 import { getLocalized } from "@/lib/i18n";
+import { resolveMarketSourceLabel } from "@/lib/dataAccess";
 import { buildWhatsAppUrlFromSettings, formatMarketPriceInquiryMessage } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
@@ -68,8 +69,8 @@ export function MarketAssetCard({ asset, lang, className }: MarketAssetCardProps
       <dl className="mt-4 space-y-2 text-xs text-flash-muted">
         <div className="flex justify-between gap-2">
           <dt>{getLocalized(marketCardLabels.source, lang)}</dt>
-          <dd>
-            <LtrText className="font-medium text-flash-text">{asset.source}</LtrText>
+          <dd className="font-medium text-flash-text">
+            {resolveMarketSourceLabel(asset.source, lang)}
           </dd>
         </div>
         <div className="flex justify-between gap-2">

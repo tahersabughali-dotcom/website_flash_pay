@@ -122,8 +122,8 @@ export const articlesData: Article[] = [
       en: "Educational information — not guaranteed rates.",
     },
     content: {
-      ar: "أسعار الصرف تتغير وتعتمد على السيولة والدولة والحجم. اطلب سعراً حياً عبر WhatsApp — لا نعرض أسعاراً تنفيذية مضمونة على الموقع.",
-      en: "Exchange rates change and depend on liquidity, country, and volume. Request a live rate via WhatsApp — we do not display guaranteed execution rates on the website.",
+      ar: "أسعار الصرف تتغير وتعتمد على السيولة والدولة والحجم. اطلب السعر عبر WhatsApp — السعر النهائي يُؤكَّد مباشرة حسب السوق والتوفر.",
+      en: "Exchange rates change and depend on liquidity, country, and volume. Request a price via WhatsApp — the final price is confirmed directly based on market conditions and availability.",
     },
     category: "trading_basics",
     author: "Flash Academy",
@@ -145,8 +145,8 @@ export const articlesData: Article[] = [
       en: "Informational notes — not investment advice.",
     },
     content: {
-      ar: "هذا المحتوى لأغراض معلوماتية فقط. للأسعار التنفيذية، اطلب سعراً حياً عبر WhatsApp.",
-      en: "This content is informational only. For execution rates, request a live price via WhatsApp.",
+      ar: "هذا المحتوى لأغراض معلوماتية فقط. للأسعار التنفيذية، اطلب السعر عبر WhatsApp.",
+      en: "This content is informational only. For execution rates, request a price via WhatsApp.",
     },
     category: "market_analysis",
     author: "Flash Pay Insights",

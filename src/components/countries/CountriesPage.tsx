@@ -12,11 +12,13 @@ import { DataGrid } from "@/components/shared/DataGrid";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { CountryCard } from "@/components/shared/CountryCard";
 import { CTASection } from "@/components/shared/CTASection";
-import { filterCountries, getUniqueCountryRegions } from "@/lib/dataAccess";
+import { filterCountries, getUniqueCountryRegions, resolveServiceLabels } from "@/lib/dataAccess";
 import { getLocalized } from "@/lib/i18n";
 import { CountriesFilter } from "./CountriesFilter";
 
 function CountryHubCard({ country, lang }: { country: Country; lang: LanguageCode }) {
+  const serviceLabels = resolveServiceLabels(country.availableServices.slice(0, 3), lang);
+
   return (
     <div className="flash-card-interactive p-4">
       <CountryCard country={country} lang={lang} variant="plain" />
@@ -27,7 +29,7 @@ function CountryHubCard({ country, lang }: { country: Country; lang: LanguageCod
         </p>
         <p className="mt-1 line-clamp-2">
           {lang === "ar" ? "الخدمات:" : "Services:"}{" "}
-          {country.availableServices.slice(0, 3).join(", ")}
+          {serviceLabels.join(lang === "ar" ? " · " : ", ")}
         </p>
       </div>
     </div>

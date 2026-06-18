@@ -53,7 +53,7 @@ export function ServiceDetailPlaceholder({ service, lang }: ServiceDetailPlaceho
 
       <div className="mt-10">
         <CTASection
-          title={lang === "ar" ? "اطلب سعراً حياً" : "Request a live rate"}
+          title={lang === "ar" ? "اطلب السعر عبر WhatsApp" : "Request price via WhatsApp"}
           description={
             lang === "ar"
               ? "لا أسعار مضمونة على الموقع."

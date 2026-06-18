@@ -14,8 +14,8 @@ export const routeFinderData: RouteDefinition[] = [
     availableServiceSlugs: ["global-money-transfers", "buy-usdt", "usdt-to-cash"],
     executionType: "coordination",
     notes: {
-      ar: "مسار شائع — اطلب سعراً حياً عبر WhatsApp. لا أسعار مضمونة على الموقع.",
-      en: "Popular route — request a live rate via WhatsApp. No guaranteed rates on the website.",
+      ar: "مسار شائع — اطلب السعر عبر WhatsApp. السعر النهائي يعتمد على السوق والتوفر.",
+      en: "Popular route — request a price via WhatsApp. Final price depends on market conditions and availability.",
     },
     status: "active",
     order: 1,

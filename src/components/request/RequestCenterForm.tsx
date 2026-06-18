@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { pageContentData } from "@/data/pageContentData";
 import { settingsData } from "@/data/settingsData";
-import { PageHero } from "@/components/shared/PageHero";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { getAllRequestTypes, getRequestTypeBySlug } from "@/lib/dataAccess";
 import { PLATFORM_SAFETY_NOTICE } from "@/lib/constants";
@@ -12,7 +11,7 @@ import { getLocalized } from "@/lib/i18n";
 import { DynamicRequestForm } from "./DynamicRequestForm";
 import { RequestTypeSelector } from "./RequestTypeSelector";
 
-export function RequestCenter() {
+export function RequestCenterForm() {
   const lang = settingsData.defaultLanguage;
   const content = pageContentData.request;
   const router = useRouter();
@@ -28,14 +27,8 @@ export function RequestCenter() {
   };
 
   return (
-    <div className="flash-page-wrap">
-      <PageHero
-        eyebrow={getLocalized(content.hero.eyebrow, lang)}
-        title={getLocalized(content.hero.title, lang)}
-        subtitle={getLocalized(content.hero.subtitle, lang)}
-      />
-
-      <section className="mt-10">
+    <>
+      <section className="mt-8">
         <SectionHeader
           title={getLocalized(content.step1.title, lang)}
           subtitle={getLocalized(content.step1.subtitle, lang)}
@@ -49,7 +42,7 @@ export function RequestCenter() {
       </section>
 
       {selectedType ? (
-        <section className="mt-10">
+        <section className="mt-8">
           <SectionHeader
             title={getLocalized(content.step2.title, lang)}
             subtitle={getLocalized(selectedType.description, lang)}
@@ -57,7 +50,7 @@ export function RequestCenter() {
           <DynamicRequestForm requestType={selectedType} lang={lang} />
         </section>
       ) : (
-        <p className="mt-10 flash-card p-6 text-sm text-flash-muted">
+        <p className="mt-8 flash-card p-6 text-sm text-flash-muted">
           {getLocalized(content.selectPrompt, lang)}
         </p>
       )}
@@ -65,6 +58,6 @@ export function RequestCenter() {
       <p className="mt-8 text-center text-xs text-flash-muted">
         {getLocalized(PLATFORM_SAFETY_NOTICE, lang)}
       </p>
-    </div>
+    </>
   );
 }

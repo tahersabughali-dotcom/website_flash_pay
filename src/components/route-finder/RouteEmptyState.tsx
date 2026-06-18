@@ -6,7 +6,7 @@ import {
   resolveReceivingMethodLabel,
 } from "@/lib/dataAccess";
 import { formatRouteFinderRequestMessage } from "@/lib/whatsapp";
-import type { RouteFinderFormState } from "./RouteFinderPage";
+import type { RouteFinderFormState } from "./RouteFinderInteractive";
 
 interface RouteEmptyStateProps {
   form: RouteFinderFormState;

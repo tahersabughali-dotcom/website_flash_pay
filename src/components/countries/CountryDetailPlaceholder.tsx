@@ -1,6 +1,11 @@
 import Link from "next/link";
 import type { LanguageCode } from "@/types/common";
 import type { Country } from "@/types/country";
+import {
+  resolvePaymentMethodLabel,
+  resolveReceivingMethodLabel,
+  resolveServiceLabels,
+} from "@/lib/dataAccess";
 import { getLocalized } from "@/lib/i18n";
 import { CTASection } from "@/components/shared/CTASection";
 
@@ -43,15 +48,19 @@ export function CountryDetailPlaceholder({ country, lang }: CountryDetailPlaceho
           />
           <InfoBlock
             title={lang === "ar" ? "طرق الدفع" : "Payment Methods"}
-            value={country.paymentMethods.join(", ")}
+            value={country.paymentMethods
+              .map((slug) => resolvePaymentMethodLabel(slug, lang))
+              .join(", ")}
           />
           <InfoBlock
             title={lang === "ar" ? "طرق الاستلام" : "Receiving Methods"}
-            value={country.receivingMethods.join(", ")}
+            value={country.receivingMethods
+              .map((slug) => resolveReceivingMethodLabel(slug, lang))
+              .join(", ")}
           />
           <InfoBlock
             title={lang === "ar" ? "الخدمات" : "Services"}
-            value={country.availableServices.join(", ")}
+            value={resolveServiceLabels(country.availableServices, lang).join(", ")}
           />
         </div>
 

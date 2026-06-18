@@ -60,8 +60,8 @@ export const pageContentData = {
       eyebrow: { ar: "مركز الطلبات", en: "Smart Request Center" },
       title: { ar: "مركز الطلبات الذكي", en: "Smart Request Center" },
       subtitle: {
-        ar: "اختر نوع طلبك، أكمل البيانات، وأرسل طلباً منظماً عبر WhatsApp الرسمي.",
-        en: "Choose your request type, complete the details, and send a structured request via official WhatsApp.",
+        ar: "اختر نوع الخدمة وأرسل طلبك عبر WhatsApp الرسمي برسالة منظمة.",
+        en: "Choose your service type and send a structured request via official WhatsApp.",
       },
     },
     step1: {
@@ -79,6 +79,20 @@ export const pageContentData = {
       en: "Please select a request type to continue.",
     },
   },
+  routeFinder: {
+    hero: {
+      eyebrow: { ar: "مكتشف المسارات", en: "Route Finder" },
+      title: { ar: "مكتشف المسارات", en: "Flash Route Finder" },
+      subtitle: {
+        ar: "ابحث عن المسارات المتاحة بين الدول ثم اطلب السعر عبر WhatsApp.",
+        en: "Find available routes between countries, then request a price via WhatsApp.",
+      },
+    },
+    formLoading: {
+      ar: "جاري تحميل نموذج البحث...",
+      en: "Loading search form...",
+    },
+  },
 } as const;
 
 export interface ContactTopicOption {
@@ -93,6 +107,10 @@ export const contactTopicsData: ContactTopicOption[] = [
   { value: "partner", label: { ar: "استفسار شراكة", en: "Partner inquiry" } },
   { value: "trust", label: { ar: "ثقة / أمان", en: "Trust / safety" } },
 ];
+
+export const marketSourceLabels = {
+  "manual-indicative": { ar: "إرشادي / يدوي", en: "Manual / Indicative" },
+} as const;
 
 export const marketPriceModeLabels = {
   indicative: { ar: "إرشادي / معلوماتي فقط", en: "Indicative / informational only" },
@@ -113,8 +131,8 @@ export const marketCardLabels = {
     en: "Request a price via WhatsApp",
   },
   requestExecutionPrice: {
-    ar: "اطلب سعر تنفيذ عبر WhatsApp",
-    en: "Request execution price via WhatsApp",
+    ar: "اطلب السعر عبر WhatsApp",
+    en: "Request price via WhatsApp",
   },
 } as const;
 

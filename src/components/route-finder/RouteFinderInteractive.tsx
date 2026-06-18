@@ -3,7 +3,6 @@
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { settingsData } from "@/data/settingsData";
-import { PageHero } from "@/components/shared/PageHero";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { DisclaimerBox } from "@/components/shared/DisclaimerBox";
 import {
@@ -11,9 +10,8 @@ import {
   getActiveCurrenciesForSelect,
   getActiveReceivingMethodsForSelect,
 } from "@/lib/dataAccess";
-import { getLocalized } from "@/lib/i18n";
-import { getNavigationBySlug } from "@/lib/navigation";
 import { searchRoutes } from "@/lib/routeFinder";
+import type { LanguageCode } from "@/types/common";
 import { RouteFinderForm } from "./RouteFinderForm";
 import { RouteResultCard } from "./RouteResultCard";
 import { RouteEmptyState } from "./RouteEmptyState";
@@ -34,7 +32,7 @@ const initialForm: RouteFinderFormState = {
   receivingMethod: "",
 };
 
-export function RouteFinderPage() {
+export function RouteFinderInteractive() {
   const lang = settingsData.defaultLanguage;
   const searchParams = useSearchParams();
   const fromParam = searchParams.get("from") ?? "";
@@ -69,26 +67,9 @@ export function RouteFinderPage() {
     setSearched(true);
   };
 
-  const routeNav = getNavigationBySlug("route-finder");
-  const routeTitle = routeNav
-    ? getLocalized(routeNav.title, lang)
-    : lang === "ar"
-      ? "مكتشف المسارات"
-      : "Flash Route Finder";
-
   return (
-    <div className="flash-page-wrap">
-      <PageHero
-        eyebrow={routeTitle}
-        title={routeTitle}
-        subtitle={
-          lang === "ar"
-            ? "ابحث عن مسارات متاحة بين الدول. لا أسعار مضمونة — اطلب سعرًا عبر WhatsApp."
-            : "Find available routes between countries. No guaranteed rates — request a rate via WhatsApp."
-        }
-      />
-
-      <section className="mt-10">
+    <>
+      <section className="mt-8">
         <RouteFinderForm
           form={form}
           onChange={setForm}
@@ -101,7 +82,7 @@ export function RouteFinderPage() {
       </section>
 
       {searched && (
-        <section className="mt-10">
+        <section className="mt-8">
           <SectionHeader
             title={
               lang === "ar"
@@ -132,16 +113,28 @@ export function RouteFinderPage() {
         </section>
       )}
 
-      <div className="mt-10">
+      <div className="mt-8">
         <DisclaimerBox
           title={lang === "ar" ? "تنبيه مهم" : "Important notice"}
           content={
             lang === "ar"
-              ? "Flash Pay لا تضمن أسعاراً نهائية أو رسوماً على الموقع. بعض الخدمات تُنسق عبر شبكة شركاء موثوقة."
+              ? "Flash Pay لا تضمن أسعارًا نهائية أو رسومًا على الموقع. بعض الخدمات تُنسق عبر شبكة شركاء موثوقة."
               : "Flash Pay does not guarantee final rates or fees on the website. Some services are coordinated through trusted partner offices."
           }
         />
       </div>
-    </div>
+    </>
+  );
+}
+
+export function RouteFinderFormFallback({ lang }: { lang: LanguageCode }) {
+  return (
+    <section className="mt-8">
+      <div className="flash-card p-6 text-sm text-flash-muted">
+        {lang === "ar"
+          ? "استخدم النموذج أدناه للبحث عن مسارات متاحة بين الدول."
+          : "Use the form below to search for available routes between countries."}
+      </div>
+    </section>
   );
 }

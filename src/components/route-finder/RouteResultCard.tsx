@@ -16,7 +16,7 @@ import {
   formatRouteFinderRequestMessage,
   buildWhatsAppUrlFromSettings,
 } from "@/lib/whatsapp";
-import type { RouteFinderFormState } from "./RouteFinderPage";
+import type { RouteFinderFormState } from "./RouteFinderInteractive";
 
 interface RouteResultCardProps {
   route: RouteDefinition;
@@ -104,7 +104,7 @@ export function RouteResultCard({ route, form, lang }: RouteResultCardProps) {
 
       <div className="mt-5">
         <RouteCTA
-          title={lang === "ar" ? "اطلب سعراً حياً" : "Request live price on WhatsApp"}
+          title={lang === "ar" ? "اطلب السعر عبر WhatsApp" : "Request price via WhatsApp"}
           whatsappMessage={whatsappMessage}
         />
         <a href={whatsappUrl} className="sr-only">

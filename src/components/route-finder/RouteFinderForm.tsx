@@ -3,7 +3,7 @@
 import type { LanguageCode } from "@/types/common";
 import { FormField } from "@/components/shared/FormField";
 import { SelectField, TextInput } from "@/components/shared/FormInputs";
-import type { RouteFinderFormState } from "./RouteFinderPage";
+import type { RouteFinderFormState } from "./RouteFinderInteractive";
 
 interface RouteFinderFormProps {
   form: RouteFinderFormState;

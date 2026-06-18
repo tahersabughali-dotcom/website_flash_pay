@@ -13,6 +13,7 @@ import { requestTypesData } from "@/data/requestTypesData";
 import { servicesData } from "@/data/servicesData";
 import { settingsData } from "@/data/settingsData";
 import { trustData, type TrustDocument } from "@/data/trustData";
+import { marketSourceLabels } from "@/data/pageContentData";
 import type { LanguageCode } from "@/types/common";
 import type { Article, AcademyCategory } from "@/types/article";
 import type { MarketCategory, MarketItem } from "@/types/market";
@@ -203,6 +204,40 @@ export function resolveReceivingMethodLabel(slug: string, lang?: LanguageCode): 
   const method = receivingMethodsData.find((m) => m.slug === slug);
   if (!method) return slug;
   return getLocalized(method.title, lang ?? settingsData.defaultLanguage);
+}
+
+const SERVICE_LABEL_FALLBACK = {
+  ar: "خدمة متاحة",
+  en: "Available service",
+} as const;
+
+export function resolveServiceLabel(slug: string, lang?: LanguageCode): string {
+  const language = lang ?? settingsData.defaultLanguage;
+  const service = getServiceBySlug(slug);
+  if (!service) return getLocalized(SERVICE_LABEL_FALLBACK, language);
+  return getLocalized(service.title, language);
+}
+
+export function resolveServiceLabels(slugs: string[], lang?: LanguageCode): string[] {
+  return slugs.map((slug) => resolveServiceLabel(slug, lang));
+}
+
+export function resolveMarketSourceLabel(source: string, lang?: LanguageCode): string {
+  const language = lang ?? settingsData.defaultLanguage;
+  const normalized = source.trim().toLowerCase().replace(/\s+\/\s+/g, "-").replace(/\s+/g, "-");
+
+  if (normalized in marketSourceLabels) {
+    return getLocalized(
+      marketSourceLabels[normalized as keyof typeof marketSourceLabels],
+      language,
+    );
+  }
+
+  if (source === "Manual / Indicative") {
+    return getLocalized(marketSourceLabels["manual-indicative"], language);
+  }
+
+  return source;
 }
 
 export function getHomeRequestTypes(limit?: number): RequestType[] {

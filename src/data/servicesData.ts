@@ -133,8 +133,8 @@ export const servicesData: Service[] = [
     slug: "buy-usdt",
     title: { ar: "شراء USDT", en: "Buy USDT" },
     shortDescription: {
-      ar: "طلب شراء USDT بأسعار حية عبر WhatsApp.",
-      en: "Request USDT purchase with live rates via WhatsApp.",
+      ar: "اطلب شراء USDT — السعر يُؤكَّد عبر WhatsApp.",
+      en: "Request USDT purchase — price is confirmed via WhatsApp.",
     },
     fullDescription: {
       ar: "نساعد في تنسيق شراء USDT عبر شركاء السيولة. الأسعار تُؤكد مباشرة وليست مضمونة على الموقع.",
