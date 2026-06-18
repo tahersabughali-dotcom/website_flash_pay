@@ -36,7 +36,7 @@ export const homepageData = {
       en: "Global financial solutions for transfers, USDT, business payments, markets, and digital liquidity — through a trusted partner network.",
     },
     primaryCta: {
-      label: { ar: "ابدأ طلبًا", en: "Start a Request" },
+      label: { ar: "ابدأ الآن", en: "Get Started" },
       href: "/request",
     },
     secondaryCta: {

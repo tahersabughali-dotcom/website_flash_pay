@@ -25,34 +25,34 @@ export function CountriesFilter({
   lang,
 }: CountriesFilterProps) {
   return (
-    <div className="flash-card space-y-5 p-5">
-      <FormField
-        label={getLocalized(uiLabelsData.search, lang)}
-        htmlFor="countries-search"
-      >
-        <SearchInput
-          id="countries-search"
-          value={search}
-          onValueChange={onSearchChange}
-          placeholder={
-            lang === "ar"
-              ? "ابحث بالدولة، العملة، أو الخدمة..."
-              : "Search by country, currency, or service..."
-          }
-        />
-      </FormField>
+    <div className="flash-card space-y-5 p-4 sm:p-5">
+        <FormField
+          label={getLocalized(uiLabelsData.search, lang)}
+          htmlFor="countries-search"
+        >
+          <SearchInput
+            id="countries-search"
+            value={search}
+            onValueChange={onSearchChange}
+            placeholder={
+              lang === "ar"
+                ? "ابحث بالدولة، العملة، أو الخدمة..."
+                : "Search by country, currency, or service..."
+            }
+          />
+        </FormField>
 
-      <div>
-        <p className="mb-3 text-sm font-medium text-flash-text">
-          {lang === "ar" ? "المنطقة" : "Region"}
-        </p>
-        <FilterTabs
-          items={regions}
-          value={region}
-          onChange={onRegionChange}
-          scrollable
-        />
-      </div>
+        <div>
+          <p className="mb-3 text-sm font-medium text-flash-text">
+            {lang === "ar" ? "المنطقة" : "Region"}
+          </p>
+          <FilterTabs
+            items={regions}
+            value={region}
+            onChange={onRegionChange}
+            scrollable
+          />
+        </div>
     </div>
   );
 }

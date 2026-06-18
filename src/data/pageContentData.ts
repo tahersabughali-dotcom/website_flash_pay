@@ -127,8 +127,8 @@ export const marketCardLabels = {
     en: "Not a live or real-time price",
   },
   requestPriceViaWhatsApp: {
-    ar: "اطلب سعرًا عبر WhatsApp",
-    en: "Request a price via WhatsApp",
+    ar: "السعر يتم تأكيده عبر WhatsApp",
+    en: "Price confirmed via WhatsApp",
   },
   requestExecutionPrice: {
     ar: "اطلب السعر عبر WhatsApp",

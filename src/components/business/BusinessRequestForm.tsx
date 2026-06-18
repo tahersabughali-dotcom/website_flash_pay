@@ -4,12 +4,17 @@ import { useState } from "react";
 import { settingsData } from "@/data/settingsData";
 import type { LanguageCode } from "@/types/common";
 import { FormField } from "@/components/shared/FormField";
+import { FormFeedback } from "@/components/shared/FormFeedback";
+import { HoneypotField } from "@/components/shared/HoneypotField";
 import { SelectField, TextArea, TextInput } from "@/components/shared/FormInputs";
 import { FormSection } from "@/components/shared/FormSection";
 import {
   getActiveCountriesForSelect,
   getActiveCurrenciesForSelect,
 } from "@/lib/dataAccess";
+import { FORM_LIMITS, sanitizeFormText, validatePublicFormFields } from "@/lib/forms/validation";
+import { getWhatsAppPreparedSuccess } from "@/lib/forms/formMessages";
+import { PUBLIC_FORM_IDS, processWhatsAppFormSubmit } from "@/lib/forms/submitWhatsAppForm";
 import {
   formatBusinessRequestMessage,
   openWhatsAppInNewTab,
@@ -30,8 +35,9 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
     whatsappNumber: "",
     notes: "",
   });
+  const [honeypot, setHoneypot] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const countryOptions = getActiveCountriesForSelect(lang);
   const currencyOptions = getActiveCurrenciesForSelect(lang);
@@ -39,38 +45,71 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
   const handleChange = (name: string, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
     setError(null);
-    setSubmitted(false);
+    setSuccess(null);
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!values.companyName.trim() || !values.whatsappNumber.trim()) {
-      setError(
-        lang === "ar"
-          ? "يرجى إدخال اسم الشركة ورقم WhatsApp."
-          : "Please enter company name and WhatsApp number.",
-      );
+    const submitError = processWhatsAppFormSubmit({
+      formId: PUBLIC_FORM_IDS.business,
+      lang,
+      honeypot,
+      onHoneypotDiscard: () => setSuccess(getWhatsAppPreparedSuccess(lang)),
+      validate: () =>
+        validatePublicFormFields(
+          [
+            {
+              key: "companyName",
+              label: { ar: "اسم الشركة", en: "Company name" },
+              required: true,
+              type: "text",
+            },
+            {
+              key: "whatsappNumber",
+              label: { ar: "WhatsApp", en: "WhatsApp" },
+              required: true,
+              type: "phone",
+            },
+            {
+              key: "notes",
+              label: { ar: "ملاحظات", en: "Notes" },
+              type: "notes",
+            },
+          ],
+          values,
+          lang,
+        ),
+      onSubmit: () => {
+        const message = formatBusinessRequestMessage([
+          { label: "Company Name", value: sanitizeFormText(values.companyName, FORM_LIMITS.nameMax) },
+          { label: "Country", value: sanitizeFormText(values.country, 80) },
+          { label: "Business Type", value: sanitizeFormText(values.businessType, 80) },
+          { label: "Monthly Volume", value: sanitizeFormText(values.monthlyVolume, 80) },
+          { label: "Required Currencies", value: sanitizeFormText(values.requiredCurrencies, 120) },
+          { label: "Target Countries", value: sanitizeFormText(values.targetCountries, 120) },
+          {
+            label: "WhatsApp",
+            value: sanitizeFormText(values.whatsappNumber, FORM_LIMITS.phoneMaxDigits + 6),
+          },
+          { label: "Notes", value: sanitizeFormText(values.notes, FORM_LIMITS.notesMax) },
+        ]);
+
+        openWhatsAppInNewTab({
+          phoneNumber: settingsData.whatsappNumber,
+          message,
+        });
+
+        setSuccess(getWhatsAppPreparedSuccess(lang));
+      },
+    });
+
+    if (submitError) {
+      setError(submitError);
+      setSuccess(null);
       return;
     }
 
-    const message = formatBusinessRequestMessage([
-      { label: "Company Name", value: values.companyName },
-      { label: "Country", value: values.country },
-      { label: "Business Type", value: values.businessType },
-      { label: "Monthly Volume", value: values.monthlyVolume },
-      { label: "Required Currencies", value: values.requiredCurrencies },
-      { label: "Target Countries", value: values.targetCountries },
-      { label: "WhatsApp", value: values.whatsappNumber },
-      { label: "Notes", value: values.notes },
-    ]);
-
-    openWhatsAppInNewTab({
-      phoneNumber: settingsData.whatsappNumber,
-      message,
-    });
-
-    setSubmitted(true);
     setError(null);
   };
 
@@ -79,14 +118,16 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
       title={lang === "ar" ? "طلب Flash Business Class" : "Flash Business Class request"}
       description={
         lang === "ar"
-          ? "املأ النموذج وسيتم فتح WhatsApp برسالة منظمة — لا يتم حفظ البيانات حالياً."
-          : "Fill the form to open WhatsApp with a structured message — data is not stored yet."
+          ? "املأ النموذج لتجهيز رسالة WhatsApp — لا يتم حفظ البيانات على خادم حالياً."
+          : "Fill the form to prepare a WhatsApp message — data is not stored on a server yet."
       }
     >
       <form
         onSubmit={handleSubmit}
-        className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+        className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
       >
+        <HoneypotField value={honeypot} onChange={setHoneypot} />
+
         <div className="grid gap-5 sm:grid-cols-2">
           <FormField
             label={lang === "ar" ? "اسم الشركة" : "Company name"}
@@ -96,6 +137,7 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
             <TextInput
               id="business-company"
               value={values.companyName}
+              maxLength={FORM_LIMITS.nameMax}
               onChange={(e) => handleChange("companyName", e.target.value)}
             />
           </FormField>
@@ -120,6 +162,7 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
             <TextInput
               id="business-type"
               value={values.businessType}
+              maxLength={100}
               onChange={(e) => handleChange("businessType", e.target.value)}
             />
           </FormField>
@@ -131,6 +174,7 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
             <TextInput
               id="business-volume"
               value={values.monthlyVolume}
+              maxLength={100}
               onChange={(e) => handleChange("monthlyVolume", e.target.value)}
             />
           </FormField>
@@ -157,15 +201,12 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
             <TextInput
               id="business-targets"
               value={values.targetCountries}
+              maxLength={200}
               onChange={(e) => handleChange("targetCountries", e.target.value)}
             />
           </FormField>
 
-          <FormField
-            label="WhatsApp"
-            htmlFor="business-whatsapp"
-            required
-          >
+          <FormField label="WhatsApp" htmlFor="business-whatsapp" required>
             <TextInput
               id="business-whatsapp"
               value={values.whatsappNumber}
@@ -181,22 +222,15 @@ export function BusinessRequestForm({ lang }: BusinessRequestFormProps) {
             <TextArea
               id="business-notes"
               value={values.notes}
+              maxLength={FORM_LIMITS.notesMax}
               onChange={(e) => handleChange("notes", e.target.value)}
             />
           </FormField>
         </div>
 
-        {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
-        {submitted && (
-          <p className="mt-4 text-sm text-emerald-700">
-            {lang === "ar" ? "تم فتح WhatsApp." : "WhatsApp opened."}
-          </p>
-        )}
+        <FormFeedback error={error} success={success} />
 
-        <button
-          type="submit"
-          className="mt-6 flash-btn-primary"
-        >
+        <button type="submit" className="mt-6 flash-btn-primary">
           {lang === "ar" ? "إرسال عبر WhatsApp" : "Send via WhatsApp"}
         </button>
       </form>

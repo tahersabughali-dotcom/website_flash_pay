@@ -1,12 +1,6 @@
-import type { LocalizedString } from "@/types/common";
+import type { ReceivingMethodDefinition } from "@/types/payment";
 
-export interface ReceivingMethodDefinition {
-  id: string;
-  slug: string;
-  title: LocalizedString;
-  status: "active" | "hidden";
-  order: number;
-}
+export type { ReceivingMethodDefinition };
 
 export const receivingMethodsData: ReceivingMethodDefinition[] = [
   { id: "rm-cash", slug: "cash", title: { ar: "نقداً", en: "Cash" }, status: "active", order: 1 },

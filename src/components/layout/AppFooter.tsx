@@ -4,6 +4,7 @@ import { uiLabelsData } from "@/data/pageContentData";
 import { settingsData } from "@/data/settingsData";
 import { getLocalized } from "@/lib/i18n";
 import { getVisibleNavigation } from "@/lib/navigation";
+import { legalFooterLinks } from "@/data/legalPagesData";
 import { PLATFORM_VERSION } from "@/lib/constants";
 import { OfficialChannelsBox } from "@/components/trust/OfficialChannelsBox";
 import { BrandLogo } from "@/components/shared/BrandLogo";
@@ -15,7 +16,7 @@ export function AppFooter() {
   const footerItems = getVisibleNavigation({ footer: true });
 
   return (
-    <footer className="mt-auto border-t border-slate-200 bg-gradient-to-b from-flash-surface to-white">
+    <footer className="mt-auto border-t border-slate-200 bg-gradient-to-b from-flash-surface to-white max-lg:pb-[calc(5.5rem+env(safe-area-inset-bottom))]">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:py-9">
         <div className="grid gap-6 lg:grid-cols-[1fr_320px] lg:gap-8">
           <div>
@@ -47,6 +48,21 @@ export function AppFooter() {
                 </Link>
               </nav>
             )}
+
+            <nav
+              className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-slate-100 pt-4 text-xs sm:text-sm"
+              aria-label={lang === "ar" ? "روابط قانونية" : "Legal links"}
+            >
+              {legalFooterLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-flash-muted transition hover:text-flash-primary"
+                >
+                  {getLocalized(link.label, lang)}
+                </Link>
+              ))}
+            </nav>
 
             <div className="mt-5 max-w-xl">
               <DisclaimerBox

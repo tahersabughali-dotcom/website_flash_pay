@@ -3,6 +3,7 @@
 import type { LanguageCode } from "@/types/common";
 import { FormField } from "@/components/shared/FormField";
 import { SelectField, TextInput } from "@/components/shared/FormInputs";
+import { VisualSelectPreview } from "@/components/shared/VisualSelectPreview";
 import type { RouteFinderFormState } from "./RouteFinderInteractive";
 
 interface RouteFinderFormProps {
@@ -36,9 +37,9 @@ export function RouteFinderForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+      className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6"
     >
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
         <FormField
           label={lang === "ar" ? "من دولة" : "From country"}
           htmlFor="from-country"
@@ -51,6 +52,7 @@ export function RouteFinderForm({
             options={countries}
             placeholder={lang === "ar" ? "اختر..." : "Select..."}
           />
+          <VisualSelectPreview fieldName="fromCountry" value={form.fromCountrySlug} lang={lang} />
         </FormField>
 
         <FormField
@@ -65,6 +67,7 @@ export function RouteFinderForm({
             options={countries}
             placeholder={lang === "ar" ? "اختر..." : "Select..."}
           />
+          <VisualSelectPreview fieldName="toCountry" value={form.toCountrySlug} lang={lang} />
         </FormField>
 
         <FormField label={lang === "ar" ? "العملة" : "Currency"} htmlFor="currency">
@@ -75,6 +78,7 @@ export function RouteFinderForm({
             options={currencies}
             placeholder={lang === "ar" ? "اختياري" : "Optional"}
           />
+          <VisualSelectPreview fieldName="currency" value={form.currency} lang={lang} />
         </FormField>
 
         <FormField label={lang === "ar" ? "المبلغ" : "Amount"} htmlFor="amount">
@@ -100,6 +104,7 @@ export function RouteFinderForm({
             options={receivingMethods}
             placeholder={lang === "ar" ? "اختياري" : "Optional"}
           />
+          <VisualSelectPreview fieldName="receivingMethod" value={form.receivingMethod} lang={lang} />
         </FormField>
       </div>
 

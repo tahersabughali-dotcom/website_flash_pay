@@ -245,6 +245,23 @@ export function getHomeRequestTypes(limit?: number): RequestType[] {
   return limit ? items.slice(0, limit) : items;
 }
 
+const HOME_QUICK_ACTION_SLUGS = [
+  "send-money",
+  "receive-money",
+  "buy-usdt",
+  "sell-usdt",
+  "pay-supplier",
+  "paypal-cash-out",
+  "wise-cash-out",
+  "bulk-rate-request",
+] as const;
+
+export function getHomeQuickActions(): RequestType[] {
+  return HOME_QUICK_ACTION_SLUGS.map((slug) =>
+    requestTypesData.find((item) => item.slug === slug && item.status === "active"),
+  ).filter((item): item is RequestType => Boolean(item));
+}
+
 export function getPartnerNetworkPreview(limit?: number): PartnerNetworkEntry[] {
   if (!isFeatureEnabled("showPartnerNetwork")) return [];
   const items = sortByOrder(filterByStatus(partnerNetworkData));

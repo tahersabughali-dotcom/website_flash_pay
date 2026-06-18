@@ -3,10 +3,16 @@ import { NotFoundState } from "@/components/shared/NotFoundState";
 import { settingsData } from "@/data/settingsData";
 import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = buildPageMetadata(settingsData, {
-  title: { ar: "الصفحة غير موجودة", en: "Page not found" },
-  description: settingsData.seoDefaults.description,
-});
+export const metadata: Metadata = {
+  ...buildPageMetadata(settingsData, {
+    title: { ar: "الصفحة غير موجودة", en: "Page not found" },
+    description: settingsData.seoDefaults.description,
+  }),
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function NotFoundPage() {
   const lang = settingsData.defaultLanguage;

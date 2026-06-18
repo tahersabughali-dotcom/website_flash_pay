@@ -24,7 +24,10 @@ export function LanguageSwitcher({ className, compact }: LanguageSwitcherProps) 
 
   return (
     <div
-      className={cn("inline-flex rounded-xl border border-slate-200 bg-white p-0.5", className)}
+      className={cn(
+        "inline-flex rounded-full border border-slate-200/90 bg-slate-50 p-0.5 shadow-sm",
+        className,
+      )}
       role="group"
       aria-label="Language"
     >
@@ -48,11 +51,11 @@ export function LanguageSwitcher({ className, compact }: LanguageSwitcherProps) 
               // TODO: implement locale switch without breaking RTL layout
             }}
             className={cn(
-              "rounded-lg px-2.5 py-1.5 text-xs font-semibold transition",
+              "rounded-full px-3 py-1.5 text-xs font-bold transition",
               isActive
-                ? "bg-flash-primary text-white"
-                : "text-flash-muted hover:bg-flash-primary-light hover:text-flash-primary",
-              compact && "px-2 py-1",
+                ? "bg-flash-primary text-white shadow-sm"
+                : "text-flash-muted hover:bg-white hover:text-flash-primary",
+              compact && "px-2.5 py-1",
             )}
           >
             {languageLabels[lang]}

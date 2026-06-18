@@ -21,3 +21,6 @@ export { socialLinksData } from "./socialLinksData";
 export { serviceCategoriesData } from "./serviceCategoriesData";
 export { marketCategoriesData, academyCategoriesData, businessServiceSlugs } from "./marketCategoriesData";
 export { pageContentData, contactTopicsData, uiLabelsData, marketPriceModeLabels } from "./pageContentData";
+export { legalPagesData, legalFooterLinks, getLegalPage, getAllLegalPages } from "./legalPagesData";
+export { chatData } from "./chatData";
+export { mockChatSessionsData, cloneMockChatSessions } from "./mockChatSessionsData";

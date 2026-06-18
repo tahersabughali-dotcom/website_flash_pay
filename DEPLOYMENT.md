@@ -70,6 +70,119 @@ NEXT_PUBLIC_SITE_URL=https://www.flashpay.uk
 
 Copy from `.env.example` — do **not** put passwords or API keys in the repo.
 
+Optional chat (local testing / future AI):
+
+```
+NEXT_PUBLIC_CHAT_ENABLED=true
+OPENAI_API_KEY=
+```
+
+**Important:** `OPENAI_API_KEY` is server-only. Never use `NEXT_PUBLIC_` for it and never import it in client components. Do not enable AI chat in production until tested locally. Without a key, the chat uses safe local fallback answers only.
+
+Optional Supabase live chat (local foundation — **not production-ready without auth + RLS**):
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+```
+
+| Variable | Where used |
+|----------|------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Browser + server (public) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser + server (public anon client) |
+| `SUPABASE_SERVICE_ROLE_KEY` | **Server only** — never in client components |
+
+1. Create a Supabase project and run `supabase/schema.sql` in the SQL Editor.
+2. Copy URL and anon key to `.env.local` (do **not** commit `.env.local`).
+3. For local testing only, uncomment the optional dev RLS policies at the bottom of `schema.sql`.
+4. Enable Realtime on `chat_sessions` and `chat_messages` in Supabase dashboard.
+5. Restart `npm run dev`.
+
+Without Supabase env vars, the public chat widget and `/admin/chat` mock inbox continue to work locally.
+
+Admin authentication (Step 14 — local foundation):
+
+```
+ADMIN_ALLOWED_EMAILS=admin@example.com:super_admin,support@example.com:support_agent
+NEXT_PUBLIC_ENABLE_ADMIN_PREVIEW=false
+```
+
+| Variable | Where used |
+|----------|------------|
+| `ADMIN_ALLOWED_EMAILS` | **Server only** — never import in client components |
+| `NEXT_PUBLIC_ENABLE_ADMIN_PREVIEW` | Public override for admin preview — **keep false in production** |
+
+Feature flags in `src/data/featureFlagsData.ts`:
+
+| Flag | Safe production default |
+|------|-------------------------|
+| `showChatAdminPreview` | `false` (set `true` locally only) |
+| `showRequestAdminPreview` | `false` — local request dashboard preview only |
+| `showAdminDashboardPreview` | `false` — local admin control panel at `/admin` |
+| `showContentAdminPreview` | `false` — local content admin at `/admin/content` |
+| `enableAdminAuth` | `false` until Supabase Auth + allowed emails are ready |
+| `enableLiveChatRealtime` | `false` until RLS policies are production-ready |
+| `enableChatAi` | `false` — also requires server `OPENAI_API_KEY` |
+
+`/admin/chat` must not be used in production until `enableAdminAuth`, Supabase Auth, and `ADMIN_ALLOWED_EMAILS` are configured.
+
+**Request management (`/admin/requests`):** local preview only in Step 21. Public request center still sends visitors to **WhatsApp**. Optional local drafts are stored in the browser for dev testing — not a production backend. Set `showRequestAdminPreview: false` before deploy. Do not enable `/admin/requests` in production without authentication, permissions, and a secure database (see `REQUEST_MANAGEMENT_PLAN.md`).
+
+**Admin control panel (`/admin`):** local preview only in Step 26. Overview hub for requests, chat, content, coverage, and settings — all read-only or local mock. Set `showAdminDashboardPreview` and `showContentAdminPreview` to `false` before deploy. Admin routes are `noindex` and not in the sitemap. **Hidden URL access is not production security** — require Supabase Auth, roles, and RLS (see `ADMIN_DASHBOARD_PLAN.md`).
+
+**Admin login & security (Step 27):** `/admin/login` is a safe placeholder when `enableAdminAuth` is off. Middleware + `resolveAdminRouteGate()` block admin routes when preview flags are false (`notFound`) or when production runs without full auth (redirect to login). Use `adminProductionSafety.ts` and `/admin/settings` for yes/no status only. **Never expose `SUPABASE_SERVICE_ROLE_KEY` or `ADMIN_ALLOWED_EMAILS` values to the browser.** Preview flags must be `false` in production unless authentication is fully enabled.
+
+**Form spam protection (Step 29):** Public forms use client-side validation (`src/lib/forms/validation.ts`), honeypot fields, and localStorage cooldown/rate limits (`src/lib/forms/spamProtection.ts`). This is **basic local protection only** — not sufficient for production. Before connecting a real backend:
+
+- Add **server-side validation** on all submission API routes
+- Add **rate limiting** per IP/session at the edge or API layer
+- Optional **CAPTCHA** or **Cloudflare Turnstile** later (no paid service required for planning)
+- **Never rely on client validation or honeypot alone**
+- Success copy says requests are **prepared** for WhatsApp — not **received** unless backend storage is verified
+
+**Production lockdown (Step 31):** Resolved feature flags in `src/lib/config/featureFlags.ts` force admin preview, AI chat, and live realtime **OFF in production** unless explicit safe env overrides are set. Raw `featureFlagsData.ts` values apply in development only. See `.env.example` — keep all `NEXT_PUBLIC_ENABLE_*` preview flags `false` before deploy. Hidden URL is not security.
+
+### Public-only deployment candidate (Step 32)
+
+A **public marketing site** may be deployed only when internal features remain resolved **OFF**:
+
+| Feature | Public deploy requirement |
+|---------|---------------------------|
+| Admin previews | Resolved **OFF** (`npm run check:production`) |
+| AI chat | Resolved **OFF** |
+| Live realtime | Resolved **OFF** |
+| Admin auth | Not ready without Supabase + emails + RLS |
+| Request inbox / admin DB | **Not** a production feature yet |
+| Forms | WhatsApp-only; **prepared** copy, not **received** |
+
+```bash
+npx tsx scripts/check-production-readiness.ts
+```
+
+Backend database work requires a **separate** phase: Supabase Auth, RLS, server-side validation. Hidden URL is not production security.
+
+### Before enabling public chat in production
+
+1. Run chat QA locally: `npx tsx scripts/run-chat-tests.ts` — answers must pass `src/data/chatTestCasesData.ts` with no forbidden claims.
+2. Keep **`enableChatAi: false`** unless OpenAI responses are tested with the same guardrails as the local engine.
+3. Secure Supabase (production RLS, Realtime scoped, service role server-only).
+4. Protect **`/admin/chat`** with admin auth — never expose the inbox without login.
+5. Do not let chat promise guaranteed **rates**, **timing**, or **official agency** relationships.
+6. Human handoff must clearly say **official WhatsApp is the fastest path** until live agents are active.
+
+### Local Supabase live chat test (Step 17A)
+
+1. Copy `.env.example` → `.env.local` (never commit).
+2. Set `NEXT_PUBLIC_SITE_URL=http://localhost:3000` and Supabase URL/anon/service-role keys.
+3. Run `supabase/schema.sql` in Supabase SQL Editor.
+4. For local testing only: uncomment **LOCAL DEVELOPMENT ONLY** RLS policies in `schema.sql`.
+5. Enable Realtime on `chat_sessions` and `chat_messages` in Supabase dashboard (or use polling fallback).
+6. Run `npm run dev`.
+7. Window A: `/` — open chat, send messages, test handoff.
+8. Window B: `/admin/chat` — verify status panel, reply as agent, close/reopen session.
+9. Before production: disable local-dev RLS, apply production policies, enable admin auth.
+
 ---
 
 ## 5. Deploy to Vercel
@@ -158,4 +271,4 @@ Keep a backup of `settingsData.ts` before major edits.
 - Build errors → run `npm run build` locally and read the error message
 - Domain issues → wait for DNS, then check Vercel domain settings
 
-This project does **not** include admin dashboard, database, or live market API yet — those are future steps.
+This project does **not** include production admin authentication or wallet/trade features yet. Live chat has a **local Supabase foundation** (Step 13) — enable only after schema, RLS, and auth are ready.

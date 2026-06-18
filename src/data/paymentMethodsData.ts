@@ -1,12 +1,6 @@
-import type { LocalizedString } from "@/types/common";
+import type { PaymentMethodDefinition } from "@/types/payment";
 
-export interface PaymentMethodDefinition {
-  id: string;
-  slug: string;
-  title: LocalizedString;
-  status: "active" | "hidden";
-  order: number;
-}
+export type { PaymentMethodDefinition };
 
 export const paymentMethodsData: PaymentMethodDefinition[] = [
   { id: "pm-cash", slug: "cash", title: { ar: "نقداً", en: "Cash" }, status: "active", order: 1 },

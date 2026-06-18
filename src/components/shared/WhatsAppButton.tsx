@@ -36,9 +36,9 @@ export function WhatsAppButton({
         rel="noopener noreferrer"
         aria-label={displayLabel}
         className={cn(
-          "fixed bottom-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2",
-          lang === "ar" ? "left-6" : "right-6",
-          "mb-[max(0px,env(safe-area-inset-bottom))]",
+          "fixed z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-2 ring-white transition hover:scale-[1.03] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2",
+          lang === "ar" ? "right-4 max-sm:right-3" : "left-4 max-sm:left-3",
+          "bottom-[calc(1.25rem+env(safe-area-inset-bottom))]",
           className,
         )}
       >

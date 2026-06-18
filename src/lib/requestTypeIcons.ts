@@ -11,6 +11,7 @@ const REQUEST_TYPE_ICON_GLYPHS: Record<string, string> = {
   rates: "%",
   partner: "🤝",
   market: "📊",
+  route: "🌍",
 };
 
 export function getRequestTypeIconGlyph(icon?: string): string {

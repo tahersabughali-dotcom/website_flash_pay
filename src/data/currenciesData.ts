@@ -1,13 +1,6 @@
-import type { LocalizedString } from "@/types/common";
+import type { CurrencyDefinition } from "@/types/currency";
 
-export interface CurrencyDefinition {
-  id: string;
-  code: string;
-  name: LocalizedString;
-  symbol: string;
-  status: "active" | "hidden";
-  order: number;
-}
+export type { CurrencyDefinition };
 
 export const currenciesData: CurrencyDefinition[] = [
   { id: "USD", code: "USD", name: { ar: "دولار أمريكي", en: "US Dollar" }, symbol: "$", status: "active", order: 1 },

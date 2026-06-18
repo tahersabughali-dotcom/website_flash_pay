@@ -265,6 +265,28 @@ export const staticPageSeo = {
     },
     path: "/countries",
   },
+  currencies: {
+    title: {
+      ar: "Currencies | Flash Pay",
+      en: "Currencies | Flash Pay",
+    },
+    description: {
+      ar: "دليل العملات المدعومة والمرجعية — التوفر يُؤكَّد عبر WhatsApp.",
+      en: "Supported and reference currencies directory — availability confirmed via WhatsApp.",
+    },
+    path: "/currencies",
+  },
+  paymentMethods: {
+    title: {
+      ar: "Payment Methods | Flash Pay",
+      en: "Payment Methods | Flash Pay",
+    },
+    description: {
+      ar: "دليل طرق الدفع والاستلام — التوفر حسب الدولة وشبكة الشركاء.",
+      en: "Payment and receiving methods directory — availability by country and partner network.",
+    },
+    path: "/payment-methods",
+  },
   request: {
     title: {
       ar: "Smart Request Center | Flash Pay",
@@ -275,5 +297,49 @@ export const staticPageSeo = {
       en: "Send a structured request via official WhatsApp — no guaranteed rates on the website.",
     },
     path: "/request",
+  },
+  privacyPolicy: {
+    title: {
+      ar: "سياسة الخصوصية | Flash Pay",
+      en: "Privacy Policy | Flash Pay",
+    },
+    description: {
+      ar: "سياسة خصوصية Flash Pay — استخدام محدود للبيانات، بدون بيع معلومات شخصية.",
+      en: "Flash Pay privacy policy — limited data use, no sale of personal information.",
+    },
+    path: "/privacy-policy",
+  },
+  terms: {
+    title: {
+      ar: "الشروط والأحكام | Flash Pay",
+      en: "Terms & Conditions | Flash Pay",
+    },
+    description: {
+      ar: "شروط استخدام موقع Flash Pay — معلومات إرشادية والتأكيد عبر WhatsApp.",
+      en: "Flash Pay website terms — indicative information and confirmation via WhatsApp.",
+    },
+    path: "/terms",
+  },
+  riskDisclaimer: {
+    title: {
+      ar: "تحذير المخاطر | Flash Pay",
+      en: "Risk Disclaimer | Flash Pay",
+    },
+    description: {
+      ar: "تحذير مخاطر Flash Pay — أسعار متغيرة ومعلومات إرشادية فقط.",
+      en: "Flash Pay risk disclaimer — changing rates and indicative information only.",
+    },
+    path: "/risk-disclaimer",
+  },
+  security: {
+    title: {
+      ar: "الأمان | Flash Pay",
+      en: "Security | Flash Pay",
+    },
+    description: {
+      ar: "إرشادات أمان Flash Pay — تحقق من WhatsApp الرسمي وتجنب الانتحال.",
+      en: "Flash Pay security guidance — verify official WhatsApp and avoid impersonation.",
+    },
+    path: "/security",
   },
 } as const;

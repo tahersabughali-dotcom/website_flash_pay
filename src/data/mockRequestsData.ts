@@ -1,0 +1,257 @@
+import type {
+  AdminRequestPriority,
+  AdminRequestSource,
+  AdminRequestStatus,
+  AdminServiceRequest,
+} from "@/types/adminRequest";
+
+const TS_BASE = "2026-06-17T";
+
+function mockRequest(
+  partial: Omit<
+    AdminServiceRequest,
+    "internalNotes" | "timeline" | "createdAt" | "updatedAt"
+  > & {
+    createdAt?: string;
+    updatedAt?: string;
+  },
+): AdminServiceRequest {
+  const createdAt = partial.createdAt ?? `${TS_BASE}10:00:00.000Z`;
+  const updatedAt = partial.updatedAt ?? createdAt;
+
+  return {
+    ...partial,
+    internalNotes: [],
+    timeline: [
+      {
+        id: `${partial.id}-created`,
+        type: "created",
+        label: { ar: "طلب جديد", en: "New request" },
+        createdAt,
+      },
+    ],
+    createdAt,
+    updatedAt,
+  };
+}
+
+export const mockRequestsData: AdminServiceRequest[] = [
+  mockRequest({
+    id: "req-mock-001",
+    requestNumber: "FP-2026-0001",
+    customerName: "عميل تجريبي 1",
+    customerWhatsapp: "+201000000001",
+    requestType: "Buy USDT",
+    serviceSlug: "buy-usdt",
+    fromCountry: "egypt",
+    amount: "5000",
+    currency: "EGP",
+    paymentMethod: "bank-transfer",
+    receivingMethod: "usdt-trc20",
+    notes: "طلب تجريبي — شراء USDT في مصر",
+    source: "website_form",
+    status: "new",
+    priority: "normal",
+    whatsappMessagePreview:
+      "Flash Pay — Buy USDT\n\nFrom Country: Egypt\nAmount: 5000\nCurrency: EGP",
+    tags: ["usdt", "egypt"],
+    createdAt: `${TS_BASE}08:15:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-002",
+    requestNumber: "FP-2026-0002",
+    customerName: "Demo Customer 2",
+    customerWhatsapp: "+201000000002",
+    requestType: "Sell USDT",
+    serviceSlug: "sell-usdt",
+    fromCountry: "egypt",
+    amount: "1200",
+    currency: "USDT",
+    receivingMethod: "cash",
+    notes: "Sell USDT and receive cash — sample",
+    source: "website_form",
+    status: "reviewing",
+    priority: "high",
+    assignedTo: "Agent Preview",
+    whatsappMessagePreview: "Flash Pay — Sell USDT\n\nCountry: Egypt\nAmount: 1200 USDT",
+    tags: ["usdt", "cash"],
+    createdAt: `${TS_BASE}09:00:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-003",
+    requestNumber: "FP-2026-0003",
+    customerName: "عميل تجريبي 3",
+    customerWhatsapp: "+201000000003",
+    requestType: "Send Money",
+    serviceSlug: "send-money",
+    fromCountry: "egypt",
+    toCountry: "turkey",
+    amount: "10000",
+    currency: "EGP",
+    paymentMethod: "cash",
+    receivingMethod: "bank-transfer",
+    source: "website_form",
+    status: "waiting_for_customer",
+    priority: "normal",
+    whatsappMessagePreview:
+      "Flash Pay — Send Money\n\nFrom: Egypt\nTo: Turkey\nAmount: 10000 EGP",
+    tags: ["transfer", "egypt", "turkey"],
+    createdAt: `${TS_BASE}09:30:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-004",
+    requestNumber: "FP-2026-0004",
+    customerName: "Demo Business 4",
+    customerWhatsapp: "+201000000004",
+    requestType: "Business Request",
+    serviceSlug: "business",
+    fromCountry: "uae",
+    toCountry: "china",
+    amount: "25000",
+    currency: "USD",
+    notes: "Supplier payment to China — sample B2B",
+    source: "business_form",
+    status: "quoted",
+    priority: "high",
+    whatsappMessagePreview: "Flash Pay — Business Request\n\nSupplier payment China",
+    tags: ["business", "china"],
+    createdAt: `${TS_BASE}10:00:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-005",
+    requestNumber: "FP-2026-0005",
+    customerName: "عميل تجريبي 5",
+    customerWhatsapp: "+201000000005",
+    requestType: "PayPal Cash-Out",
+    serviceSlug: "paypal-cash-out",
+    fromCountry: "egypt",
+    amount: "800",
+    currency: "USD",
+    receivingMethod: "cash",
+    source: "website_form",
+    status: "in_progress",
+    priority: "normal",
+    whatsappMessagePreview: "Flash Pay — PayPal Cash-Out\n\nAmount: 800 USD",
+    tags: ["paypal"],
+    createdAt: `${TS_BASE}11:00:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-006",
+    requestNumber: "FP-2026-0006",
+    customerName: "Demo Customer 6",
+    customerWhatsapp: "+201000000006",
+    requestType: "Wise Cash-Out",
+    serviceSlug: "wise-cash-out",
+    fromCountry: "turkey",
+    amount: "1500",
+    currency: "EUR",
+    source: "website_form",
+    status: "reviewing",
+    priority: "normal",
+    whatsappMessagePreview: "Flash Pay — Wise Cash-Out",
+    tags: ["wise"],
+    createdAt: `${TS_BASE}11:30:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-007",
+    requestNumber: "FP-2026-0007",
+    customerName: "عميل تجريبي 7",
+    customerWhatsapp: "+201000000007",
+    requestType: "Send Money",
+    serviceSlug: "send-money",
+    fromCountry: "gaza",
+    toCountry: "egypt",
+    amount: "3000",
+    currency: "USD",
+    receivingMethod: "cash",
+    notes: "Urgent Gaza corridor — sample only",
+    source: "website_form",
+    status: "new",
+    priority: "urgent",
+    whatsappMessagePreview: "Flash Pay — Send Money\n\nFrom: Gaza\nTo: Egypt",
+    tags: ["urgent", "gaza"],
+    createdAt: `${TS_BASE}12:00:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-008",
+    requestNumber: "FP-2026-0008",
+    customerName: "Demo Customer 8",
+    customerWhatsapp: "+201000000008",
+    requestType: "Bulk Rate Inquiry",
+    amount: "50000",
+    currency: "USD",
+    notes: "Bulk rate request — no guaranteed pricing",
+    source: "website_form",
+    status: "waiting_for_customer",
+    priority: "high",
+    whatsappMessagePreview: "Flash Pay — Bulk rate inquiry",
+    tags: ["bulk"],
+    createdAt: `${TS_BASE}12:30:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-009",
+    requestNumber: "FP-2026-0009",
+    customerName: "Partner Applicant 9",
+    customerWhatsapp: "+201000000009",
+    requestType: "Partner Application",
+    source: "partner_form",
+    status: "reviewing",
+    priority: "normal",
+    notes: "Partner network application — sample",
+    whatsappMessagePreview: "Flash Pay — Partner Application",
+    tags: ["partner"],
+    createdAt: `${TS_BASE}13:00:00.000Z`,
+  }),
+  mockRequest({
+    id: "req-mock-010",
+    requestNumber: "FP-2026-0010",
+    customerName: "Market Inquiry 10",
+    customerWhatsapp: "+201000000010",
+    requestType: "Market Price Inquiry",
+    currency: "USD",
+    notes: "Indicative market inquiry — not execution price",
+    source: "market_inquiry",
+    status: "completed",
+    priority: "normal",
+    whatsappMessagePreview: "Flash Pay — Market Price Inquiry\n\nAsset: USD",
+    tags: ["markets"],
+    createdAt: `${TS_BASE}07:00:00.000Z`,
+    updatedAt: `${TS_BASE}14:00:00.000Z`,
+  }),
+];
+
+export const ADMIN_REQUEST_STATUS_LABELS: Record<
+  AdminRequestStatus,
+  { ar: string; en: string }
+> = {
+  new: { ar: "طلب جديد", en: "New" },
+  reviewing: { ar: "قيد المراجعة", en: "Reviewing" },
+  waiting_for_customer: { ar: "بانتظار العميل", en: "Waiting for customer" },
+  quoted: { ar: "تم تقديم سعر", en: "Quoted" },
+  in_progress: { ar: "قيد التنفيذ", en: "In progress" },
+  completed: { ar: "مكتمل", en: "Completed" },
+  cancelled: { ar: "ملغي", en: "Cancelled" },
+  archived: { ar: "مؤرشف", en: "Archived" },
+};
+
+export const ADMIN_REQUEST_PRIORITY_LABELS: Record<
+  AdminRequestPriority,
+  { ar: string; en: string }
+> = {
+  normal: { ar: "عادي", en: "Normal" },
+  high: { ar: "مرتفع", en: "High" },
+  urgent: { ar: "عاجل", en: "Urgent" },
+};
+
+export const ADMIN_REQUEST_SOURCE_LABELS: Record<
+  AdminRequestSource,
+  { ar: string; en: string }
+> = {
+  website_form: { ar: "نموذج الموقع", en: "Website form" },
+  route_finder: { ar: "مكتشف المسارات", en: "Route finder" },
+  chat: { ar: "المحادثة", en: "Chat" },
+  whatsapp_manual: { ar: "WhatsApp يدوي", en: "WhatsApp manual" },
+  business_form: { ar: "نموذج الأعمال", en: "Business form" },
+  partner_form: { ar: "نموذج الشركاء", en: "Partner form" },
+  market_inquiry: { ar: "استفسار السوق", en: "Market inquiry" },
+};

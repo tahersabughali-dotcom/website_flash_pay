@@ -16,20 +16,20 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-50 overflow-x-clip border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-md">
-      <div className="relative mx-auto flex max-w-7xl items-center gap-2 px-4 py-2.5 sm:gap-3 lg:grid lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,auto)] lg:items-center lg:gap-4 lg:px-6 lg:py-3">
+      <div className="relative mx-auto flex max-w-7xl items-center gap-2 px-4 py-2.5 sm:gap-3 lg:grid lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,auto)] lg:items-center lg:gap-4 lg:px-6 lg:py-2.5">
         <BrandLogo asLink variant="header" className="lg:justify-self-start" />
 
         <nav
           className="hidden min-w-0 lg:block lg:justify-self-center"
           aria-label={lang === "ar" ? "التنقل الرئيسي" : "Main navigation"}
         >
-          <ul className="flex flex-wrap items-center justify-center gap-x-0.5 gap-y-1 xl:gap-x-1">
+          <ul className="flex flex-wrap items-center justify-center gap-x-1 gap-y-1">
             {desktopNavItems.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.route}
                   className={cn(
-                    "inline-flex items-center rounded-lg px-2 py-2 text-[11px] font-medium text-flash-muted transition hover:bg-flash-primary-light hover:text-flash-primary xl:px-2.5 xl:text-xs",
+                    "inline-flex min-h-10 items-center rounded-lg px-2.5 py-2 text-xs font-semibold text-slate-600 transition hover:bg-flash-primary-light hover:text-flash-primary xl:px-3 xl:text-[13px]",
                   )}
                 >
                   <span className="inline-flex items-center gap-1 whitespace-nowrap">
@@ -49,10 +49,13 @@ export function AppHeader() {
         </nav>
 
         <div className="ms-auto flex shrink-0 items-center gap-1.5 lg:ms-0 lg:justify-self-end lg:gap-2">
-          <div className="hidden items-center gap-1.5 lg:flex xl:gap-2">
+          <div className="hidden items-center gap-2 lg:flex">
             <LanguageSwitcher compact />
-            <WhatsAppButton className="!rounded-xl !px-3 !py-2 !text-xs" label="WhatsApp" />
-            <Link href="/request" className="flash-btn-primary whitespace-nowrap !px-3.5 !py-2.5 !text-xs xl:!px-4">
+            <WhatsAppButton className="!min-h-10 !rounded-xl !px-3.5 !py-2.5 !text-xs" label="WhatsApp" />
+            <Link
+              href="/request"
+              className="flash-btn-primary min-h-10 whitespace-nowrap !px-4 !py-2.5 !text-xs xl:!px-5"
+            >
               {getLocalized(uiLabelsData.startRequest, lang)}
             </Link>
           </div>

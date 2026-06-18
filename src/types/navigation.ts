@@ -13,7 +13,15 @@ export type FeatureFlagKey =
   | "showComingSoon"
   | "showMarketTicker"
   | "showTrustCenter"
-  | "showSmartRequestCenter";
+  | "showSmartRequestCenter"
+  | "showChatWidget"
+  | "showChatAdminPreview"
+  | "showRequestAdminPreview"
+  | "showAdminDashboardPreview"
+  | "showContentAdminPreview"
+  | "enableLiveChatRealtime"
+  | "enableChatAi"
+  | "enableAdminAuth";
 
 export interface NavigationItem extends BaseEntity {
   title: LocalizedString;

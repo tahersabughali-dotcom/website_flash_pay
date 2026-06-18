@@ -46,8 +46,16 @@ export function TrustCenterPage() {
           <div className="flash-card p-5 text-sm text-flash-muted">
             <p>{getLocalized(homepageData.footer.safetyNotice, lang)}</p>
             <Link
-              href="/request"
+              href="/security"
               className="mt-4 inline-flex font-medium text-flash-primary hover:underline"
+            >
+              {lang === "ar"
+                ? `إرشادات الأمان ${getActionArrow(lang)}`
+                : `Security guidance ${getActionArrow(lang)}`}
+            </Link>
+            <Link
+              href="/request"
+              className="mt-3 inline-flex font-medium text-flash-primary hover:underline"
             >
               {lang === "ar"
                 ? `تواصل عبر مركز الطلبات ${getActionArrow(lang)}`

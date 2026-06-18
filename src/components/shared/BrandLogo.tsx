@@ -1,12 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { settingsData } from "@/data/settingsData";
 import { cn } from "@/lib/utils";
 
 const HEADER_LOGO_SRC = "/images/logo-header.png";
 const HEADER_MARK_SRC = "/images/logo-mark.png";
+
+function useHydrated() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
 
 interface BrandLogoProps {
   className?: string;
@@ -31,8 +39,34 @@ function HeaderBrandMark({
   imageClassName?: string;
   textClassName?: string;
 }) {
+  const hydrated = useHydrated();
   const [markFailed, setMarkFailed] = useState(false);
   const [headerLogoFailed, setHeaderLogoFailed] = useState(false);
+
+  if (!hydrated) {
+    return (
+      <>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={HEADER_MARK_SRC}
+          alt=""
+          aria-hidden
+          className={cn(
+            "h-[34px] w-auto max-w-[52px] shrink-0 object-contain sm:h-[38px] lg:h-[44px]",
+            imageClassName,
+          )}
+        />
+        <span
+          className={cn(
+            "truncate text-base font-bold tracking-tight text-flash-primary sm:text-lg lg:text-xl",
+            textClassName,
+          )}
+        >
+          {settingsData.brandName}
+        </span>
+      </>
+    );
+  }
 
   if (!markFailed) {
     return (
@@ -44,7 +78,7 @@ function HeaderBrandMark({
           aria-hidden
           onError={() => setMarkFailed(true)}
           className={cn(
-            "h-[34px] w-auto max-w-[52px] shrink-0 object-contain sm:h-[38px] lg:h-[42px]",
+            "h-[34px] w-auto max-w-[52px] shrink-0 object-contain sm:h-[38px] lg:h-[44px]",
             imageClassName,
           )}
         />
@@ -94,6 +128,7 @@ export function BrandLogo({
   asLink = false,
   variant = "default",
 }: BrandLogoProps) {
+  const hydrated = useHydrated();
   const [imageFailed, setImageFailed] = useState(false);
   const logoSrc = settingsData.logo;
   const showFooterImage = Boolean(logoSrc) && !imageFailed;
@@ -101,6 +136,25 @@ export function BrandLogo({
   const content =
     variant === "header" ? (
       <HeaderBrandMark imageClassName={imageClassName} textClassName={textClassName} />
+    ) : !hydrated && logoSrc ? (
+      <>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logoSrc}
+          alt={settingsData.brandName}
+          className={cn(defaultImageClass(variant), imageClassName)}
+        />
+        <span className="sr-only">{settingsData.brandName}</span>
+      </>
+    ) : !hydrated ? (
+      <span
+        className={cn(
+          "truncate text-base font-semibold text-flash-primary sm:text-lg",
+          textClassName,
+        )}
+      >
+        {settingsData.brandName}
+      </span>
     ) : showFooterImage ? (
       <>
         {/* eslint-disable-next-line @next/next/no-img-element */}
