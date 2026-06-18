@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { FeatureCard } from "@/components/shared/FeatureCard";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { getHomeRequestTypes } from "@/lib/dataAccess";
-import { getLocalized } from "@/lib/i18n";
+import { getLocalized, getActionArrow } from "@/lib/i18n";
 
 export function SmartActionsSection() {
   const lang = settingsData.defaultLanguage;
@@ -24,7 +24,7 @@ export function SmartActionsSection() {
         action={
           config.actionHref && config.actionLabel ? (
             <Link href={config.actionHref} className="flash-link-action">
-              {getLocalized(config.actionLabel, lang)} →
+              {getLocalized(config.actionLabel, lang)} {getActionArrow(lang)}
             </Link>
           ) : undefined
         }

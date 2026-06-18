@@ -39,6 +39,10 @@ export function buildPageMetadata(
     keywords: input.keywords ?? settings.seoDefaults.keywords,
     metadataBase: new URL(siteUrl),
     alternates: { canonical },
+    icons: {
+      icon: "/images/favicon.png",
+      apple: "/images/favicon.png",
+    },
     openGraph: {
       title,
       description,
@@ -120,22 +124,22 @@ export function buildArticleMetadata(
 export const staticPageSeo = {
   routeFinder: {
     title: {
-      ar: "Flash Route Finder | Flash Pay",
+      ar: "مكتشف المسارات | Flash Pay",
       en: "Flash Route Finder | Flash Pay",
     },
     description: {
-      ar: "ابحث عن مسارات مالية متاحة بين الدول واطلب سعراً حياً عبر WhatsApp.",
-      en: "Find available financial routes between countries and request a live rate via WhatsApp.",
+      ar: "ابحث عن مسارات مالية متاحة بين الدول واطلب سعرًا عبر WhatsApp.",
+      en: "Find available financial routes between countries and request a rate via WhatsApp.",
     },
     path: "/route-finder",
   },
   trust: {
     title: {
-      ar: "Trust Center | Flash Pay",
+      ar: "مركز الثقة | Flash Pay",
       en: "Trust Center | Flash Pay",
     },
     description: {
-      ar: "قنوات رسمية، تنبيهات أمان، وإخلاء مسؤولية — Flash Pay Trust Center.",
+      ar: "قنوات رسمية، تنبيهات أمان، وإخلاء مسؤولية — مركز ثقة Flash Pay.",
       en: "Official channels, safety notices, and disclaimers — Flash Pay Trust Center.",
     },
     path: "/trust",

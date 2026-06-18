@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { LanguageCode } from "@/types/common";
+import { uiLabelsData } from "@/data/pageContentData";
+import { getLocalized } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 interface RequestCTAProps {
@@ -23,10 +25,10 @@ export function RequestCTA({ lang, title, description, className }: RequestCTAPr
       </div>
       <div className="flex flex-wrap gap-3">
         <Link href="/request" className="flash-btn-primary">
-          {lang === "ar" ? "ابدأ طلباً" : "Start a Request"}
+          {getLocalized(uiLabelsData.startRequest, lang)}
         </Link>
         <Link href="/partners" className="flash-btn-secondary">
-          {lang === "ar" ? "كن شريكاً" : "Become a Partner"}
+          {lang === "ar" ? "كن شريكًا" : "Become a Partner"}
         </Link>
       </div>
     </div>

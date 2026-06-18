@@ -10,7 +10,7 @@ export const pageContentData = {
         ar: "خدمات عبر شبكة شركائنا — التوفر يعتمد على الدولة، العملة، وتغطية الشركاء.",
         en: "Services through our partner network — availability depends on country, currency, and partner coverage.",
       },
-      ctaLabel: { ar: "ابدأ طلباً", en: "Start a Request" },
+      ctaLabel: { ar: "ابدأ طلبًا", en: "Start a Request" },
       ctaHref: "/request",
     },
     bottomCta: {
@@ -31,7 +31,7 @@ export const pageContentData = {
   countries: {
     hero: {
       eyebrow: { ar: "الدول", en: "Countries" },
-      title: { ar: "Countries Hub", en: "Countries Hub" },
+      title: { ar: "مركز الدول", en: "Countries Hub" },
       subtitle: {
         ar: "استكشف الدول المدعومة، العملات، والخدمات المتاحة حسب التغطية.",
         en: "Explore supported countries, currencies, and available services by coverage.",
@@ -57,7 +57,7 @@ export const pageContentData = {
   },
   request: {
     hero: {
-      eyebrow: { ar: "Smart Request Center", en: "Smart Request Center" },
+      eyebrow: { ar: "مركز الطلبات", en: "Smart Request Center" },
       title: { ar: "مركز الطلبات الذكي", en: "Smart Request Center" },
       subtitle: {
         ar: "اختر نوع طلبك، أكمل البيانات، وأرسل طلباً منظماً عبر WhatsApp الرسمي.",
@@ -96,14 +96,32 @@ export const contactTopicsData: ContactTopicOption[] = [
 
 export const marketPriceModeLabels = {
   indicative: { ar: "إرشادي / معلوماتي فقط", en: "Indicative / informational only" },
-  manual: { ar: "يدوي / غير مباشر", en: "Manual / not live" },
+  manual: { ar: "إرشادي / يدوي", en: "Manual / indicative" },
   unavailable: { ar: "غير متاح", en: "Unavailable" },
 } as const;
 
+export const marketCardLabels = {
+  source: { ar: "المصدر", en: "Source" },
+  lastUpdated: { ar: "آخر تحديث", en: "Last updated" },
+  priceMode: { ar: "وضع السعر", en: "Price mode" },
+  notLivePrice: {
+    ar: "ليس سعرًا مباشرًا أو لحظيًا",
+    en: "Not a live or real-time price",
+  },
+  requestPriceViaWhatsApp: {
+    ar: "اطلب سعرًا عبر WhatsApp",
+    en: "Request a price via WhatsApp",
+  },
+  requestExecutionPrice: {
+    ar: "اطلب سعر تنفيذ عبر WhatsApp",
+    en: "Request execution price via WhatsApp",
+  },
+} as const;
+
 export const uiLabelsData = {
-  startRequest: { ar: "ابدأ طلباً", en: "Start a Request" },
+  startRequest: { ar: "ابدأ طلبًا", en: "Start a Request" },
   loading: { ar: "جاري التحميل...", en: "Loading..." },
-  trustCenter: { ar: "Trust Center", en: "Trust Center" },
+  trustCenter: { ar: "مركز الثقة", en: "Trust Center" },
   search: { ar: "بحث", en: "Search" },
   searchArticles: { ar: "بحث في المقالات", en: "Search articles" },
   searchPlaceholder: { ar: "بحث...", en: "Search..." },

@@ -37,9 +37,42 @@ html {
   overflow-x: clip;
 }
 
+main {
+  overflow-x: clip;
+}
+
 @layer utilities {
+  .flash-hero {
+    background: linear-gradient(
+      135deg,
+      var(--flash-primary) 0%,
+      var(--flash-primary) 45%,
+      var(--flash-primary-dark) 100%
+    );
+  }
+
+  .flash-hero-pattern {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .flash-ltr {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    text-align: start;
+    display: inline-block;
+  }
+
   .flash-section {
-    @apply mt-14 sm:mt-16;
+    @apply mt-10 sm:mt-11;
+  }
+
+  .flash-section-header {
+    @apply mb-5 sm:mb-6;
   }
 
   .flash-card {
@@ -51,7 +84,7 @@ html {
   }
 
   .flash-page-wrap {
-    @apply mx-auto w-full max-w-6xl px-4 py-8 sm:py-12;
+    @apply mx-auto w-full max-w-6xl px-4 py-6 sm:py-10;
   }
 
   .flash-btn-primary {

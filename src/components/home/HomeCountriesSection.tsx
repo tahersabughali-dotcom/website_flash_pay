@@ -6,7 +6,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { CountryCard } from "@/components/shared/CountryCard";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { getFeaturedCountries } from "@/lib/dataAccess";
-import { getLocalized } from "@/lib/i18n";
+import { getLocalized, getActionArrow } from "@/lib/i18n";
 
 export function HomeCountriesSection() {
   const lang = settingsData.defaultLanguage;
@@ -20,7 +20,7 @@ export function HomeCountriesSection() {
         subtitle={getLocalized(config.subtitle, lang)}
         action={
           <Link href={config.actionHref!} className="flash-link-action">
-            {getLocalized(config.actionLabel!, lang)} →
+            {getLocalized(config.actionLabel!, lang)} {getActionArrow(lang)}
           </Link>
         }
       />

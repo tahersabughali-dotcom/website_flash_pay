@@ -15,7 +15,7 @@ export const trustData: TrustDocument[] = [
     slug: "official-contact-channels",
     title: { ar: "قنوات التواصل الرسمية", en: "Official Contact Channels" },
     content: {
-      ar: "تواصل فقط عبر أرقام وروابط المنصة الرسمية المنشورة في Trust Center. احذر الحسابات المزيفة.",
+      ar: "تواصل فقط عبر أرقام وروابط المنصة الرسمية المنشورة في مركز الثقة. احذر الحسابات المزيفة.",
       en: "Contact only through official numbers and links published in Trust Center. Beware of fake accounts.",
     },
     status: "published",
@@ -81,7 +81,7 @@ export const trustData: TrustDocument[] = [
     slug: "privacy-commitment",
     title: { ar: "التزام الخصوصية", en: "Privacy Commitment" },
     content: {
-      ar: "نلتزم بعدم جمع بيانات حساسة غير ضرورية. سياسة الخصوصية الكاملة ستُنشر في Trust Center.",
+      ar: "نلتزم بعدم جمع بيانات حساسة غير ضرورية. سياسة الخصوصية الكاملة ستُنشر في مركز الثقة.",
       en: "We commit to not collecting unnecessary sensitive data. Full privacy policy will be published in Trust Center.",
     },
     status: "published",

@@ -1,3 +1,4 @@
+import { LtrText } from "@/components/shared/LtrText";
 import { cn } from "@/lib/utils";
 
 interface InfoListProps {
@@ -18,7 +19,7 @@ export function InfoList({ title, items, emptyLabel, className }: InfoListProps)
               key={item}
               className="rounded-full bg-flash-primary-light px-3 py-1 text-xs font-medium text-flash-primary"
             >
-              {item}
+              <LtrText>{item}</LtrText>
             </li>
           ))}
         </ul>

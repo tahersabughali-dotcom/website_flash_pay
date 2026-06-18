@@ -16,3 +16,8 @@ export function isRtlLanguage(lang: LanguageCode): boolean {
 export function getTextDirection(lang: LanguageCode): "rtl" | "ltr" {
   return isRtlLanguage(lang) ? "rtl" : "ltr";
 }
+
+/** RTL-aware arrow for section action links. */
+export function getActionArrow(lang: LanguageCode): string {
+  return lang === "ar" ? "←" : "→";
+}

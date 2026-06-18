@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { FeatureCard } from "@/components/shared/FeatureCard";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { getPartnerNetworkPreview } from "@/lib/dataAccess";
-import { getLocalized } from "@/lib/i18n";
+import { getLocalized, getActionArrow } from "@/lib/i18n";
 
 export function HomeNetworkSection() {
   const lang = settingsData.defaultLanguage;
@@ -24,11 +24,11 @@ export function HomeNetworkSection() {
         action={
           <div className="flex flex-wrap gap-3">
             <Link href={config.actionHref!} className="flash-link-action">
-              {getLocalized(config.actionLabel!, lang)} →
+              {getLocalized(config.actionLabel!, lang)} {getActionArrow(lang)}
             </Link>
             {config.secondaryActionHref && config.secondaryActionLabel && (
               <Link href={config.secondaryActionHref} className="flash-link-action">
-                {getLocalized(config.secondaryActionLabel, lang)} →
+                {getLocalized(config.secondaryActionLabel, lang)} {getActionArrow(lang)}
               </Link>
             )}
           </div>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { uiLabelsData } from "@/data/pageContentData";
 import { settingsData } from "@/data/settingsData";
 import { getLocalized } from "@/lib/i18n";
 import { getVisibleNavigation } from "@/lib/navigation";
@@ -15,7 +16,7 @@ export function MobileNavigation() {
   const navItems = getVisibleNavigation();
 
   return (
-    <div className="lg:hidden">
+    <div className="relative shrink-0 lg:hidden">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
@@ -76,7 +77,7 @@ export function MobileNavigation() {
                   onClick={() => setOpen(false)}
                   className="flash-btn-primary w-full text-center"
                 >
-                  {lang === "ar" ? "ابدأ طلباً" : "Start a Request"}
+                  {getLocalized(uiLabelsData.startRequest, lang)}
                 </Link>
                 <WhatsAppButton className="w-full justify-center !rounded-xl" />
               </div>

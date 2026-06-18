@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { ArticleCard } from "@/components/academy/ArticleCard";
 import { getFeaturedArticles } from "@/lib/dataAccess";
-import { getLocalized } from "@/lib/i18n";
+import { getLocalized, getActionArrow } from "@/lib/i18n";
 
 export function HomeAcademySection() {
   const lang = settingsData.defaultLanguage;
@@ -23,7 +23,7 @@ export function HomeAcademySection() {
         subtitle={getLocalized(config.subtitle, lang)}
         action={
           <Link href={config.actionHref!} className="flash-link-action">
-            {getLocalized(config.actionLabel!, lang)} →
+            {getLocalized(config.actionLabel!, lang)} {getActionArrow(lang)}
           </Link>
         }
       />

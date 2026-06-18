@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { settingsData } from "@/data/settingsData";
 import { socialLinksData } from "@/data/socialLinksData";
+import { ContactValue } from "@/components/shared/ContactValue";
 import { getLocalized } from "@/lib/i18n";
 import { buildWhatsAppUrlFromSettings } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
@@ -24,7 +25,7 @@ export function ContactChannels({ className }: ContactChannelsProps) {
     },
     {
       label: lang === "ar" ? "الموقع الرسمي" : "Official website",
-      value: settingsData.websiteUrl,
+      value: settingsData.websiteUrl.replace(/^https?:\/\//, ""),
       href: settingsData.websiteUrl,
     },
     {
@@ -32,37 +33,36 @@ export function ContactChannels({ className }: ContactChannelsProps) {
       value: settingsData.email,
       href: `mailto:${settingsData.email}`,
     },
+    {
+      label: lang === "ar" ? "أوقات الدعم" : "Support hours",
+      value: getLocalized(settingsData.supportHours, lang),
+    },
   ];
 
   return (
-    <div className={cn("rounded-2xl border border-slate-200 bg-white p-6 shadow-sm", className)}>
+    <div className={cn("rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6", className)}>
       <h2 className="text-lg font-semibold text-flash-text">
         {lang === "ar" ? "قنوات التواصل" : "Contact channels"}
       </h2>
-      <ul className="mt-5 space-y-4">
+      <ul className="mt-4 space-y-3.5">
         {channels.map((channel) => (
           <li key={channel.label}>
-            <p className="text-xs font-medium uppercase tracking-wide text-flash-muted">
-              {channel.label}
-            </p>
-            <a
-              href={channel.href}
-              target={channel.href.startsWith("http") ? "_blank" : undefined}
-              rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="mt-1 block text-sm font-medium text-flash-primary hover:underline"
-            >
-              {channel.value}
-            </a>
+            <p className="text-xs font-medium text-flash-muted">{channel.label}</p>
+            {channel.href ? (
+              <ContactValue value={channel.value} href={channel.href} />
+            ) : (
+              <p className="mt-1 text-sm text-flash-text">{channel.value}</p>
+            )}
           </li>
         ))}
       </ul>
 
       {activeSocial.length > 0 && (
-        <div className="mt-6 border-t border-slate-100 pt-5">
-          <p className="text-xs font-medium uppercase tracking-wide text-flash-muted">
+        <div className="mt-5 border-t border-slate-100 pt-4">
+          <p className="text-xs font-medium text-flash-muted">
             {lang === "ar" ? "وسائل التواصل" : "Social links"}
           </p>
-          <div className="mt-3 flex flex-wrap gap-3">
+          <div className="mt-2 flex flex-wrap gap-3">
             {activeSocial.map((link) => (
               <Link
                 key={link.id}

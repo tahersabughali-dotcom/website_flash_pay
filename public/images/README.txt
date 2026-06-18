@@ -1,11 +1,11 @@
-Add these files before final public marketing launch:
+Flash Pay brand assets (public/images/)
 
-- `logo.png` — site logo (referenced in settingsData.logo as /images/logo.png)
-  If missing, the header shows the text brand "Flash Pay" automatically.
+Required files:
+- logo.png — full brand lockup (settingsData.logo → /images/logo.png; footer)
+- logo-header.png — compact header logo (BrandLogo variant="header")
+- logo-mark.png — optional icon/mark for future use
+- favicon.png — browser tab icon (metadata icons in seo.ts)
+- og-default.png — Open Graph image 1200×630 (settingsData.seoDefaults.ogImage)
 
-- `og-default.png` — Open Graph image, recommended 1200×630 px
-  (referenced in settingsData.seoDefaults.ogImage as /images/og-default.png)
-  TODO: Add og-default.png at 1200×630 before final public marketing launch.
-  Metadata will still work without this file; social previews may look incomplete.
-
-Do not use logo.svg unless you intentionally add that file and update settingsData.
+If logo images are missing, header and footer show the text brand "Flash Pay" automatically.
+Metadata paths still work if og-default.png or favicon.png are absent (previews may look incomplete).

@@ -8,6 +8,7 @@ import { PLATFORM_VERSION } from "@/lib/constants";
 import { OfficialChannelsBox } from "@/components/trust/OfficialChannelsBox";
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { DisclaimerBox } from "@/components/shared/DisclaimerBox";
+import { LtrText } from "@/components/shared/LtrText";
 
 export function AppFooter() {
   const lang = settingsData.defaultLanguage;
@@ -15,24 +16,23 @@ export function AppFooter() {
 
   return (
     <footer className="mt-auto border-t border-slate-200 bg-gradient-to-b from-flash-surface to-white">
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:py-9">
+        <div className="grid gap-6 lg:grid-cols-[1fr_320px] lg:gap-8">
           <div>
-            <BrandLogo className="mb-3" />
+            <BrandLogo className="mb-3" variant="footer" />
             <p className="text-base font-semibold text-flash-text">
               {getLocalized(settingsData.platformName, lang)}
             </p>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-flash-muted">
-              {lang === "ar"
-                ? "منصة مالية عالمية — خدمات عبر شبكة شركاء موثوقة."
-                : "Global financial platform — services through a trusted partner network."}
+              {getLocalized(homepageData.footer.tagline, lang)}
             </p>
             <p className="mt-3 text-xs text-flash-muted">
-              {lang === "ar" ? "الإصدار" : "Version"}: {PLATFORM_VERSION}
+              {lang === "ar" ? "الإصدار" : "Version"}:{" "}
+              <LtrText>{PLATFORM_VERSION}</LtrText>
             </p>
 
             {footerItems.length > 0 && (
-              <nav className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              <nav className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm">
                 {footerItems.map((item) => (
                   <Link
                     key={item.id}
@@ -48,14 +48,14 @@ export function AppFooter() {
               </nav>
             )}
 
-            <div className="mt-6 max-w-xl">
+            <div className="mt-5 max-w-xl">
               <DisclaimerBox
                 content={getLocalized(homepageData.footer.safetyNotice, lang)}
               />
             </div>
           </div>
 
-          <OfficialChannelsBox />
+          <OfficialChannelsBox compact />
         </div>
       </div>
     </footer>

@@ -99,7 +99,7 @@ export const articlesData: Article[] = [
       en: "Safety tips for contacting Flash Pay.",
     },
     content: {
-      ar: "تواصل فقط عبر القنوات الرسمية المنشورة في Trust Center. لا ترسل أموالاً لحسابات غير موثقة. تحقق من رقم WhatsApp والموقع قبل أي تحويل.",
+      ar: "تواصل فقط عبر القنوات الرسمية المنشورة في مركز الثقة. لا ترسل أموالًا لحسابات غير موثقة. تحقق من رقم WhatsApp والموقع قبل أي تحويل.",
       en: "Contact only through official channels published in Trust Center. Do not send money to unverified accounts. Verify WhatsApp number and website before any transfer.",
     },
     category: "fraud_protection",

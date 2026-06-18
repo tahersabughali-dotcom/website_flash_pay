@@ -3,6 +3,7 @@
 import type { LanguageCode } from "@/types/common";
 import type { RequestType } from "@/types/request";
 import { getLocalized } from "@/lib/i18n";
+import { getRequestTypeIconGlyph } from "@/lib/requestTypeIcons";
 import { cn } from "@/lib/utils";
 import { DataGrid } from "@/components/shared/DataGrid";
 
@@ -29,14 +30,14 @@ export function RequestTypeSelector({
             type="button"
             onClick={() => onSelect(type.slug)}
             className={cn(
-              "rounded-2xl border p-4 text-start shadow-sm transition",
+              "group rounded-2xl border p-4 text-start shadow-sm transition hover:-translate-y-0.5",
               selected
                 ? "border-flash-primary bg-flash-primary-light ring-2 ring-flash-primary/20"
-                : "border-slate-200 bg-white hover:border-flash-primary",
+                : "border-slate-200 bg-white hover:border-flash-primary/45 hover:shadow-md",
             )}
           >
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white text-xs font-bold text-flash-primary">
-              {(type.icon ?? type.slug).slice(0, 2).toUpperCase()}
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-flash-primary-light to-white text-base font-semibold text-flash-primary ring-1 ring-flash-primary/10">
+              {getRequestTypeIconGlyph(type.icon)}
             </span>
             <h3 className="mt-3 font-semibold text-flash-text">
               {getLocalized(type.title, lang)}

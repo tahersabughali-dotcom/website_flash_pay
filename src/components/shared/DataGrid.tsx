@@ -15,7 +15,7 @@ const columnClasses = {
 
 export function DataGrid({ children, columns = 3, className }: DataGridProps) {
   return (
-    <div className={cn("grid gap-4", columnClasses[columns], className)}>
+    <div className={cn("grid gap-3 sm:gap-4", columnClasses[columns], className)}>
       {children}
     </div>
   );

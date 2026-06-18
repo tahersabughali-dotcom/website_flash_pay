@@ -11,11 +11,11 @@ export function ContactPage() {
   return (
     <div className="flash-page-wrap">
       <PageHero
-        eyebrow={lang === "ar" ? "Contact" : "Contact"}
+        eyebrow={lang === "ar" ? "تواصل معنا" : "Contact"}
         title={lang === "ar" ? "تواصل رسمي مع Flash Pay" : "Official Flash Pay contact"}
         subtitle={
           lang === "ar"
-            ? "استخدم القنوات الرسمية فقط — احذر الحسابات المزيفة."
+            ? "استخدم القنوات الرسمية فقط — واحذر الحسابات المزيفة."
             : "Use official channels only — beware of fake accounts."
         }
       >
@@ -24,11 +24,11 @@ export function ContactPage() {
         />
       </PageHero>
 
-      <div className="mt-8">
+      <div className="mt-6">
         <ContactTrustNotice lang={lang} />
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[360px_1fr]">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[320px_1fr] lg:gap-8">
         <ContactChannels />
         <ContactForm lang={lang} />
       </div>

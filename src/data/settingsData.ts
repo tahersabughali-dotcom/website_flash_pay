@@ -6,9 +6,10 @@ import type { PlatformSettings } from "@/types/settings";
  *
  * Step 9 — production values applied. Remaining before final marketing launch:
  * [ ] email — confirm support@flashpay.uk mailbox is active
- * [ ] og-default.png — add at public/images/og-default.png (1200×630)
- * [ ] logo.png — add at public/images/logo.png (fallback text brand works until then)
  * [ ] DNS — connect www.flashpay.uk on Vercel and set NEXT_PUBLIC_SITE_URL
+ *
+ * Brand assets (public/images/): logo.png, logo-header.png, logo-mark.png,
+ * favicon.png, og-default.png
  */
 export const settingsData: PlatformSettings = {
   brandName: "Flash Pay",
@@ -27,7 +28,7 @@ export const settingsData: PlatformSettings = {
   instagramUrl: "",
   telegramUrl: "",
   supportHours: {
-    ar: "الدعم متاح عبر واتساب حسب أوقات العمل",
+    ar: "الدعم متاح عبر واتساب خلال أوقات العمل",
     en: "Support is available via WhatsApp during working hours",
   },
   showMarketsTicker: true,

@@ -22,7 +22,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-request",
     slug: "request",
-    title: { ar: "مركز الطلبات الذكي", en: "Smart Request Center" },
+    title: { ar: "ابدأ طلبًا", en: "Smart Request Center" },
     route: "/request",
     status: "active",
     order: 2,
@@ -34,7 +34,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-route-finder",
     slug: "route-finder",
-    title: { ar: "Flash Route Finder", en: "Flash Route Finder" },
+    title: { ar: "مكتشف المسارات", en: "Flash Route Finder" },
     route: "/route-finder",
     status: "active",
     order: 3,
@@ -69,7 +69,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-markets",
     slug: "markets",
-    title: { ar: "Flash Markets", en: "Flash Markets" },
+    title: { ar: "الأسواق", en: "Flash Markets" },
     route: "/markets",
     status: "active",
     order: 6,
@@ -81,7 +81,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-business",
     slug: "business",
-    title: { ar: "Flash Business Class", en: "Flash Business Class" },
+    title: { ar: "الأعمال", en: "Flash Business Class" },
     route: "/business",
     status: "active",
     order: 7,
@@ -93,7 +93,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-partners",
     slug: "partners",
-    title: { ar: "Flash Partners", en: "Flash Partners" },
+    title: { ar: "الشركاء", en: "Flash Partners" },
     route: "/partners",
     status: "active",
     order: 8,
@@ -105,7 +105,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-network",
     slug: "network",
-    title: { ar: "Flash Pay Network", en: "Flash Pay Network" },
+    title: { ar: "شبكة Flash Pay", en: "Flash Pay Network" },
     route: "/network",
     status: "active",
     order: 9,
@@ -117,7 +117,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-academy",
     slug: "academy",
-    title: { ar: "Flash Academy", en: "Flash Academy" },
+    title: { ar: "الأكاديمية", en: "Flash Academy" },
     route: "/academy",
     status: "active",
     order: 10,
@@ -129,7 +129,7 @@ export const navigationData: NavigationItem[] = [
   {
     id: "nav-trust",
     slug: "trust",
-    title: { ar: "Trust Center", en: "Trust Center" },
+    title: { ar: "مركز الثقة", en: "Trust Center" },
     route: "/trust",
     status: "active",
     order: 11,

@@ -11,6 +11,8 @@ import {
   getActiveCurrenciesForSelect,
   getActiveReceivingMethodsForSelect,
 } from "@/lib/dataAccess";
+import { getLocalized } from "@/lib/i18n";
+import { getNavigationBySlug } from "@/lib/navigation";
 import { searchRoutes } from "@/lib/routeFinder";
 import { RouteFinderForm } from "./RouteFinderForm";
 import { RouteResultCard } from "./RouteResultCard";
@@ -67,15 +69,22 @@ export function RouteFinderPage() {
     setSearched(true);
   };
 
+  const routeNav = getNavigationBySlug("route-finder");
+  const routeTitle = routeNav
+    ? getLocalized(routeNav.title, lang)
+    : lang === "ar"
+      ? "مكتشف المسارات"
+      : "Flash Route Finder";
+
   return (
     <div className="flash-page-wrap">
       <PageHero
-        eyebrow="Flash Route Finder"
-        title={lang === "ar" ? "Flash Route Finder" : "Flash Route Finder"}
+        eyebrow={routeTitle}
+        title={routeTitle}
         subtitle={
           lang === "ar"
-            ? "ابحث عن مسارات متاحة بين الدول. لا أسعار مضمونة — اطلب سعراً حياً عبر WhatsApp."
-            : "Find available routes between countries. No guaranteed rates — request a live price via WhatsApp."
+            ? "ابحث عن مسارات متاحة بين الدول. لا أسعار مضمونة — اطلب سعرًا عبر WhatsApp."
+            : "Find available routes between countries. No guaranteed rates — request a rate via WhatsApp."
         }
       />
 

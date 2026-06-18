@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { BusinessOfferCard } from "@/components/business/BusinessOfferCard";
 import { getActiveBusinessOfferings } from "@/lib/dataAccess";
-import { getLocalized } from "@/lib/i18n";
+import { getLocalized, getActionArrow } from "@/lib/i18n";
 
 export function HomeBusinessSection() {
   const lang = settingsData.defaultLanguage;
@@ -24,7 +24,7 @@ export function HomeBusinessSection() {
           subtitle={getLocalized(config.subtitle, lang)}
           action={
             <Link href={config.actionHref!} className="flash-link-action">
-              {getLocalized(config.actionLabel!, lang)} →
+              {getLocalized(config.actionLabel!, lang)} {getActionArrow(lang)}
             </Link>
           }
         />

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { settingsData } from "@/data/settingsData";
 import { homepageData } from "@/data/homepageData";
+import { uiLabelsData } from "@/data/pageContentData";
 import { PageHero } from "@/components/shared/PageHero";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { getPublishedTrustItems } from "@/lib/dataAccess";
-import { getLocalized } from "@/lib/i18n";
+import { getActionArrow, getLocalized } from "@/lib/i18n";
 import { OfficialChannelsBox } from "./OfficialChannelsBox";
 import { TrustGrid } from "./TrustGrid";
 import { DisclaimerSection } from "./DisclaimerSection";
@@ -12,12 +13,13 @@ import { DisclaimerSection } from "./DisclaimerSection";
 export function TrustCenterPage() {
   const lang = settingsData.defaultLanguage;
   const trustItems = getPublishedTrustItems();
+  const trustTitle = getLocalized(uiLabelsData.trustCenter, lang);
 
   return (
     <div className="flash-page-wrap">
       <PageHero
-        eyebrow="Trust Center"
-        title={lang === "ar" ? "Trust Center" : "Trust Center"}
+        eyebrow={trustTitle}
+        title={trustTitle}
         subtitle={
           lang === "ar"
             ? "الأمان، الشفافية، القنوات الرسمية، وإخلاء المسؤولية."
@@ -25,8 +27,8 @@ export function TrustCenterPage() {
         }
       />
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
-        <div className="space-y-8">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_320px] lg:gap-8">
+        <div className="space-y-6">
           <SectionHeader
             title={lang === "ar" ? "إشعارات الثقة" : "Trust notices"}
             subtitle={
@@ -39,15 +41,17 @@ export function TrustCenterPage() {
           <DisclaimerSection lang={lang} />
         </div>
 
-        <aside className="space-y-6">
-          <OfficialChannelsBox />
+        <aside className="space-y-5">
+          <OfficialChannelsBox compact />
           <div className="flash-card p-5 text-sm text-flash-muted">
             <p>{getLocalized(homepageData.footer.safetyNotice, lang)}</p>
             <Link
               href="/request"
               className="mt-4 inline-flex font-medium text-flash-primary hover:underline"
             >
-              {lang === "ar" ? "تواصل عبر مركز الطلبات ←" : "Contact via Request Center →"}
+              {lang === "ar"
+                ? `تواصل عبر مركز الطلبات ${getActionArrow(lang)}`
+                : `Contact via Request Center ${getActionArrow(lang)}`}
             </Link>
           </div>
         </aside>
